@@ -1,27 +1,45 @@
 import { useState } from "react";
 import CrudHead from "../CrudHead";
-import FormPenulis from "../Form/FormPenulis";
+import FormPengiriman from "../Form/FormPengiriman";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
 
-const tableHeaders = ["iD penulis", "nama penulis", "aksi"];
+const tableHeaders = [
+    "ID pengiriman",
+    "ID pembayaran",
+    "ID pesanan",
+    "tanggal pengiriman",
+    "status pengiriman",
+    "no resi",
 
-const tableFields = ["id_penulis", "nama_penulis"];
+    "Aksi",
+];
+
+const tableFields = [
+    "id_pengiriman",
+    "id_pembayaran",
+    "id_pesanan",
+    "tanggal_pengiriman",
+    "status_pengiriman",
+    "no_resi",
+];
 
 const commonCellClass = "py-5 relative";
-const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3 capitalize";
+const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3";
 
-export default function TableWriter({ penulis }) {
+export default function TablePengiriman({ pengiriman }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
-                title="penulis"
+                title="pengiriman"
                 onClick={() => setTambahOpen(!TambahOpen)}
             />
-            {TambahOpen && <FormPenulis onClick={() => setTambahOpen(false)} />}
+            {TambahOpen && (
+                <FormPengiriman onClick={() => setTambahOpen(false)} />
+            )}
 
             <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
                 <thead>
@@ -36,14 +54,14 @@ export default function TableWriter({ penulis }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {penulis.map((penulis) => (
+                    {pengiriman.map((pengiriman) => (
                         <tr
-                            key={penulis.id}
+                            key={pengiriman.id}
                             className="border-b-2 border-gray-200 text-center"
                         >
                             {tableFields.map((field) => (
                                 <td key={field} className={commonCellClass}>
-                                    {penulis[field]}
+                                    {pengiriman[field]}
                                 </td>
                             ))}
                             <td className={commonCellClass}>
@@ -53,7 +71,7 @@ export default function TableWriter({ penulis }) {
                                 >
                                     <PenIcon className="size-3 fill-white" />
                                     {EditOpen && (
-                                        <FormPenulis
+                                        <FormPengiriman
                                             onClick={() => setEditOpen(false)}
                                         />
                                     )}

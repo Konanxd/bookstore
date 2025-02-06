@@ -41,6 +41,21 @@ Route::get('/penulis', function () {
 });
 
 
+Route::get('/pesanan', function () {
+    return Inertia::render('Crud/Pesanan');
+});
+
+Route::get('/pengiriman', function () {
+    return Inertia::render('Crud/Pengiriman');
+});
+
+Route::get('/pembayaran', function () {
+    return Inertia::render('Crud/Pembayaran');
+});
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

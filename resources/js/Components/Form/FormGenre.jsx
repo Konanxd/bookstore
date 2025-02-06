@@ -1,4 +1,4 @@
-import InputComponent from '../InputComponent';
+import InputComponent from "../InputComponent";
 
 export default function FormGenre({ ...props }) {
     return (
@@ -15,8 +15,6 @@ export default function FormGenre({ ...props }) {
                         title="nama genre"
                         type="text"
                     />
-                    <InputComponent id="no_hp" title="no hp" type="text" />
-                    <InputComponent id="alamat" title="alamat" type="text" />
                 </div>
                 <div className="flex w-full flex-row justify-end gap-4">
                     <button

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function DropdownSecondary() {
     const [dashboardOpen, setDashboardOpen] = useState(false);
@@ -105,6 +105,12 @@ export default function DropdownSecondary() {
                             className="capitalize hover:text-slate-800"
                         >
                             pengiriman
+                        </a>
+                        <a
+                            href="/pembayaran"
+                            className="capitalize hover:text-slate-800"
+                        >
+                            pembayaran
                         </a>
                     </div>
                 )}

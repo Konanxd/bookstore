@@ -1,18 +1,28 @@
 import InputComponent from "../InputComponent";
 
-export default function FormPublisher({ ...props }) {
+export default function FormPesanan({ ...props }) {
     return (
         <div className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-zinc-900/80">
             <form
                 action="POST"
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah publisher</h1>
+                <h1 className="font-bold uppercase">tambah buku</h1>
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
-                    <InputComponent id="id_publisher" title="id" type="text" />
                     <InputComponent
-                        id="nama_publisher"
-                        title="nama publisher"
+                        id="id_pesnaan"
+                        title="id pesanan"
+                        type="text"
+                    />
+                    <InputComponent
+                        id="id_pelanggan"
+                        title="id pelanggan"
+                        type="text"
+                    />
+                    <InputComponent id="id_buku" title="id buku" type="text" />
+                    <InputComponent
+                        id="tanggal_pesanan"
+                        title="tanggal pesanan"
                         type="text"
                     />
                 </div>
