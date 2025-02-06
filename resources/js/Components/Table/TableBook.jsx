@@ -18,7 +18,7 @@ const tableHeaders = [
 ];
 
 const tableFields = [
-    "id",
+    "id_buku",
     "judul",
     "penulis",
     "isbn",
@@ -56,7 +56,7 @@ export default function TableBook({ books }) {
                 <tbody>
                     {books.map((book) => (
                         <tr
-                            key={book.id}
+                            key={book.id_buku}
                             className="border-b-2 border-gray-200 text-center"
                         >
                             {tableFields.map((field) => (
