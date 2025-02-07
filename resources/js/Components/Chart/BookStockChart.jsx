@@ -19,9 +19,25 @@ export default function BookStockChart({ data }) {
             {
                 label: "Stock Levels",
                 data: data.map((item) => item.stock),
-                backgroundColor: "rgba(54, 162, 235, 0.6)",
-                borderColor: "rgba(54, 162, 235, 1)",
+                borderColor: "rgba(0,0,0,0)",
                 borderWidth: 1,
+                backgroundColor: (context) => {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+                    if (!chartArea) return null;
+                    const gradient = ctx.createLinearGradient(
+                        0,
+                        chartArea.top,
+                        0,
+                        chartArea.bottom
+                    );
+                    gradient.addColorStop(0, "rgba(132, 112, 255, 1)");
+                    gradient.addColorStop(1, "rgba(132, 112, 255, .5)");
+                    return gradient;
+                },
+
+                fill: true,
+                tension: 0.3,
             },
         ],
     };
@@ -31,9 +47,21 @@ export default function BookStockChart({ data }) {
         indexAxis: "y",
         scales: {
             x: { beginAtZero: true },
-            y: { title: { displplay: true } },
+            y: {
+                title: { displplay: true },
+                grid: {
+                    display: false,
+                },
+            },
         },
     };
 
-    return <Bar data={chartData} options={options} />;
+    return (
+        <div className="bg-white p-5 rounded-2xl h-full flex flex-col justify-between drop-shadow-md">
+            <h2 className="text-center text-lg font-semibold my-4">
+                Stokc Levels
+            </h2>
+            <Bar data={chartData} options={options} />
+        </div>
+    );
 }

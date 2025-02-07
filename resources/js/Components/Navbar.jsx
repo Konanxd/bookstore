@@ -28,6 +28,7 @@ const Navbar = () => {
                     method="post"
                     href={route("logout")}
                     as="button"
+                    className="bg-red-500 text-white flex justify-center uppercase rounded-md border-none hover:bg-red-400 hover:text-white text-sm"
                 >
                     Log Out
                 </ResponsiveNavLink>

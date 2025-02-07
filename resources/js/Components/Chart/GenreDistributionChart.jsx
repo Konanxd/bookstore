@@ -23,12 +23,25 @@ export default function GenreDistributionChart({ data }) {
         ],
     };
 
+    const options = {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.75,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: {
+                    padding: 20,
+                },
+            },
+        },
+    };
     return (
-        <div className="w-1/2 mx-auto">
+        <div className="bg-white p-5 rounded-2xl flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
                 Genre Distribution
             </h2>
-            <Pie data={chartData} />
+            <Pie data={chartData} options={options} className="" />
         </div>
     );
 }

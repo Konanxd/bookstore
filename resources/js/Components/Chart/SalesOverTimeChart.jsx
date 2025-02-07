@@ -42,9 +42,19 @@ export default function SalesOverTimeChart({ data }) {
             },
             x: {
                 title: { display: true, text: "Date" },
+                grid: {
+                    display: false,
+                },
             },
         },
     };
 
-    return <Line data={chartData} options={options} />;
+    return (
+        <div className="bg-white p-5 rounded-2xl h-96 flex flex-col justify-between drop-shadow-md">
+            <h2 className="text-center text-lg font-semibold my-4">
+                Total Sold Books
+            </h2>
+            <Line data={chartData} options={options} />
+        </div>
+    );
 }
