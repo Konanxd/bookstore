@@ -13,8 +13,8 @@ class PembayaranController extends Controller
     public function index()
     {
         $payments = Pembayaran::all();
-        return Inertia::render('Pembayaran', [
-            'publishers' => $payments
+        return Inertia::render('Crud/Pembayaran', [
+            'payments' => $payments
         ]);
     }
 

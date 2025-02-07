@@ -1,28 +1,91 @@
-import { useState } from 'react';
-import CrudHead from '../CrudHead';
-import FormPublisher from '../Form/FormPublisher';
-import PenIcon from '../Icon/PenIcon';
-import TrashIcon from '../Icon/TrashIcon';
+import { useState } from "react";
+import CrudHead from "../CrudHead";
+import FormPublisher from "../Form/FormPublisher";
+import PenIcon from "../Icon/PenIcon";
+import TrashIcon from "../Icon/TrashIcon";
+import { router } from "@inertiajs/react";
 
-const tableHeaders = ['iD penerbit', 'nama penerbit', 'aksi'];
+const tableHeaders = ["ID penerbit", "Nama Penerbit", "Aksi"];
 
-const tableFields = ['id_penerbit', 'nama_penerbit'];
+const tableFields = ["id_penerbit", "nama_penerbit"];
 
-const commonCellClass = 'py-5 relative';
-const commonHeaderClass = 'py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3 capitalize';
+const commonCellClass = "py-5 relative";
+const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3 capitalize";
 
-export default function TablePublisher({ publisher }) {
+export default function TablePublisher({ publishers }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const handleEdit = (item) => {
+        setSelectedItem(item);
+        setEditOpen(true);
+    };
+
+    const handleAddItem = (newData) => {
+        router.post("/penerbit", newData, {
+            onSuccess: () => {
+                alert("Penerbit berhasil ditambahkan!");
+                setTambahOpen(false);
+            },
+            onError: () => {
+                alert(
+                    "Gagal menambahkan penerbit. Terjadi kesalahan atau judul penerbit sudah tersedia."
+                );
+            },
+        });
+    };
+
+    const handleDelete = (id) => {
+        if (window.confirm("Anda yakin ingin menghapus data ini?")) {
+            router.delete(`/penerbit/${id}`, {
+                onSuccess: () => {
+                    alert("Penerbit berhasil dihapus!");
+                },
+                onError: () => {
+                    alert(
+                        "Terjadi kesalahan atau penerbit masih tersedia di tabel lain."
+                    );
+                },
+            });
+        }
+    };
+
+    const handleUpdate = (updatedData) => {
+        router.put(`/penerbit/${selectedItem.id_penerbit}`, updatedData, {
+            onSuccess: () => {
+                alert("Penerbit berhasil diubah!");
+                setEditOpen(false);
+                setSelectedItem(null);
+            },
+            onError: () => {
+                alert("Failed to update book.");
+            },
+        });
+    };
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
-                title="publisher"
+                title="Publisher"
                 onClick={() => setTambahOpen(!TambahOpen)}
             />
             {TambahOpen && (
-                <FormPublisher onClick={() => setTambahOpen(false)} />
+                <FormPublisher
+                    onSubmit={handleAddItem}
+                    onCancel={() => setTambahOpen(false)}
+                />
+            )}
+
+            {EditOpen && selectedItem && (
+                <FormPublisher
+                    data={selectedItem}
+                    onSubmit={handleUpdate}
+                    onCancel={() => {
+                        setEditOpen(false);
+                        setSelectedItem(null);
+                    }}
+                />
             )}
 
             <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
@@ -38,29 +101,31 @@ export default function TablePublisher({ publisher }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {publisher.map((publisher) => (
+                    {publishers.map((penerbit) => (
                         <tr
-                            key={publisher.id}
+                            key={penerbit.id_penerbit}
                             className="border-b-2 border-gray-200 text-center"
                         >
                             {tableFields.map((field) => (
                                 <td key={field} className={commonCellClass}>
-                                    {publisher[field]}
+                                    {penerbit[field]}
                                 </td>
                             ))}
                             <td className={commonCellClass}>
                                 <button
                                     className="rounded bg-blue-500 px-2 py-2 text-white"
-                                    onClick={() => setTambahOpen(!TambahOpen)}
+                                    onClick={() => {
+                                        handleEdit(penerbit);
+                                    }}
                                 >
                                     <PenIcon className="size-3 fill-white" />
-                                    {EditOpen && (
-                                        <FormPublisher
-                                            onClick={() => setEditOpen(false)}
-                                        />
-                                    )}
                                 </button>
-                                <button className="ml-2 rounded bg-red-500 px-2 py-2 text-white">
+                                <button
+                                    onClick={() =>
+                                        handleDelete(penerbit.id_penerbit)
+                                    }
+                                    className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
+                                >
                                     <TrashIcon className="size-3 fill-white" />
                                 </button>
                             </td>

@@ -55,7 +55,6 @@ export default function FormPelanggan({ data, onSubmit, onCancel }) {
                         submit
                     </button>
                     <button
-                        {...props}
                         className="rounded-md bg-zinc-500 px-4 py-2 uppercase text-white"
                         onClick={onCancel}
                     >

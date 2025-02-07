@@ -1,22 +1,12 @@
-import TablePenerbit from '@/Components/Table/TablePublisher';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-
+import { usePage } from "@inertiajs/react";
+import TablePublisher from "@/Components/Table/TablePublisher";
+import GuestLayout from "@/Layouts/GuestLayout";
 export default function Penerbit() {
-    const penerbitData = [
-        {
-            id_penerbit: 1,
-            nama_penerbit: 'ABBAS',
-        },
-        {
-            id_penerbit: 2,
-            nama_penerbit: 'ABBAS',
-        },
-    ];
+    const { publishers } = usePage().props;
+
     return (
-        <AuthenticatedLayout>
-            <div className="h-screen w-full overflow-y-scroll">
-                <TablePenerbit publisher={penerbitData}></TablePenerbit>
-            </div>
-        </AuthenticatedLayout>
+        <GuestLayout>
+            <TablePublisher publishers={publishers}></TablePublisher>
+        </GuestLayout>
     );
 }

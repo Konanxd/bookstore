@@ -68,7 +68,7 @@ export default function TableCustomer({ customers }) {
             onSuccess: () => {
                 alert("Buku berhasil diubah!");
                 setEditOpen(false);
-                selectedItem(null);
+                setSelectedItem(null);
             },
             onError: () => {
                 alert("Failed to update book.");
@@ -95,7 +95,7 @@ export default function TableCustomer({ customers }) {
                     onSubmit={handleUpdate}
                     onCancel={() => {
                         setEditOpen(false);
-                        selectedItem(null);
+                        setSelectedItem(null);
                     }}
                 />
             )}
@@ -134,7 +134,7 @@ export default function TableCustomer({ customers }) {
                                 </button>
                                 <button
                                     onClick={() =>
-                                        handleDelete(customer.id_customer)
+                                        handleDelete(customer.id_pelanggan)
                                     }
                                     className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
                                 >

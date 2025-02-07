@@ -13,7 +13,7 @@ class PenerbitController extends Controller
     public function index()
     {
         $publishers = Penerbit::all();
-        return Inertia::render('Penerbit', [
+        return Inertia::render('Crud/Penerbit', [
             'publishers' => $publishers
         ]);
     }
