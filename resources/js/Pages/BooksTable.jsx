@@ -1,18 +1,16 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from "@inertiajs/react";
 
 const BooksTable = () => {
-    const { books } = usePage().props; // Get the books data passed by Inertia
+    const { books } = usePage().props;
 
-    // Handle delete action
     const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this book?')) {
+        if (window.confirm("Are you sure you want to delete this book?")) {
             destroy(`/buku/${id}`, {
                 onSuccess: () => {
-                    // No need to manually update state; Inertia will automatically handle it
-                    alert('Book deleted successfully!');
+                    alert("Book deleted successfully!");
                 },
                 onError: () => {
-                    alert('Failed to delete book.');
+                    alert("Failed to delete book.");
                 },
             });
         }

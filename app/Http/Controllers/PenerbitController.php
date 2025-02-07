@@ -6,6 +6,7 @@ use App\Models\Buku;
 use Inertia\Inertia;
 use App\Models\Penerbit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenerbitController extends Controller
 {
@@ -25,7 +26,7 @@ class PenerbitController extends Controller
 
         Penerbit::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('penerbit.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -34,15 +35,23 @@ class PenerbitController extends Controller
             'nama_penerbit' => 'sometimes|required|string|max:255'
         ]);
 
-        $peenrbit = Penerbit::findOrFaill($id);
-        $peenrbit->update($validated);
+        $penerbit = DB::table('penerbit')
+            ->where('id_penerbit', $id)
+            ->update($validated);
+        if (!$penerbit) {
+            return redirect()->route('penerbit.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('penerbit.index')->with('message', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $hasRelation = Buku::where('id_penerbit', $id)->exists();
+        $hasRelation = DB::table('buku')
+            ->where('id_penerbit', $id)
+            ->exists();
 
         if ($hasRelation) {
             return redirect()->route('penerbit.index')->withErrors([
@@ -50,7 +59,11 @@ class PenerbitController extends Controller
             ]);
         }
 
-        Penerbit::findOrFail($id)->delete();
-        return redirect()->noContent();
+        $penerbit = Penerbit::where('id_penerbit', $id)->delete();
+        if (!$penerbit) {
+            return redirect()->route('penerbit.index')->withErrors('message', 'Data tidak ditemukan.');
+        }
+
+        return redirect()->route('penerbit.index')->with('message', 'Data berhasil dihapus!');
     }
 }

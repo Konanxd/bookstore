@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Pengiriman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PengirimanController extends Controller
 {
@@ -28,7 +29,7 @@ class PengirimanController extends Controller
 
         Pengiriman::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('pengiriman.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -41,15 +42,21 @@ class PengirimanController extends Controller
             'no_resi' => 'required|string|max:255'
         ]);
 
-        $pengiriman = Pengiriman::findOrFaill($id);
-        $pengiriman->update($validated);
+        $pengiriman = DB::table('pengiriman')
+            ->where('id_pengiriman', $id)
+            ->update($validated);
+        if (!$pengiriman) {
+            return redirect()->route('pengiriman.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('pengiriman.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function destroy($id)
     {
         Pengiriman::findOrFail($id)->delete();
-        return redirect()->noContent();
+        return redirect()->route('pengiriman.index')->with('message', 'Data berhasil ditambahkan!');
     }
 }

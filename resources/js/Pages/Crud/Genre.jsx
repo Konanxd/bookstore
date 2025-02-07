@@ -1,22 +1,13 @@
-import TableGenre from '@/Components/Table/TableGenre';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { usePage } from "@inertiajs/react";
+import TableGenre from "@/Components/Table/TableGenre";
+import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function Genre() {
-    const genreData = [
-        {
-            id_genre: 1,
-            nama_genre: 'ABBAS',
-        },
-        {
-            id_genre: 2,
-            nama_genre: 'ABBAS',
-        },
-    ];
+    const { genres } = usePage().props;
+
     return (
-        <AuthenticatedLayout>
-            <div className="h-screen w-full overflow-y-scroll">
-                <TableGenre genre={genreData}></TableGenre>
-            </div>
-        </AuthenticatedLayout>
+        <GuestLayout>
+            <TableGenre genres={genres}></TableGenre>
+        </GuestLayout>
     );
 }

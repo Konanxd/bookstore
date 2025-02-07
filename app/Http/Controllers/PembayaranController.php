@@ -6,14 +6,15 @@ use Inertia\Inertia;
 use App\Models\Pembayaran;
 use App\Models\Pengiriman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
 {
-    public function index(Pembayaran $payment)
+    public function index()
     {
         $payments = Pembayaran::all();
         return Inertia::render('Pembayaran', [
-            'publishers' => $payment
+            'publishers' => $payments
         ]);
     }
 
@@ -28,7 +29,7 @@ class PembayaranController extends Controller
 
         Pembayaran::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('pembayaran.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -40,15 +41,23 @@ class PembayaranController extends Controller
             'stat_bayar' => 'required|string|max:255',
         ]);
 
-        $peenrbit = Pembayaran::findOrFaill($id);
-        $peenrbit->update($validated);
+        $pembayaran = DB::table('pembayaran')
+            ->where('id_pembayaran', $id)
+            ->update($validated);
+        if (!$pembayaran) {
+            return redirect()->route('pembayaran.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('pembayaran.index')->with('message', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $hasRelation = Pengiriman::where('id_pengiriman', $id)->exists();
+        $hasRelation = DB::table('pengiriman')
+            ->where('id_pembayaran', $id)
+            ->exists();
 
         if ($hasRelation) {
             return redirect()->route('pengiriman.index')->withErrors([
@@ -56,7 +65,11 @@ class PembayaranController extends Controller
             ]);
         }
 
-        Pembayaran::findOrFail($id)->delete();
-        return redirect()->noContent();
+        $pembayaran = Pembayaran::where('id_pembayaran', $id)->delete();
+        if (!$pembayaran) {
+            return redirect()->route('pembayaran.index')->withErrors('message', 'Data tidak ditemukan.');
+        }
+
+        return redirect()->route('pembayaran.index')->with('message', 'Data berhasil idhapus!');
     }
 }

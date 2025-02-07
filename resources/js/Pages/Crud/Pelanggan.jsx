@@ -1,26 +1,12 @@
-import TableCustomer from '@/Components/Table/TableCustomer';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-
+import { usePage } from "@inertiajs/react";
+import TableCustomer from "@/Components/Table/TableCustomer";
+import GuestLayout from "@/Layouts/GuestLayout";
 export default function Pelanggan() {
-    const customerData = [
-        {
-            id_pelanggan: 2,
-            nama_pelanggan: 'ABBAS',
-            no_hp: '089898989',
-            alamat: 'bandung',
-        },
-        {
-            id_pelanggan: 2,
-            nama_pelanggan: 'ABBAS',
-            no_hp: '089898989',
-            alamat: 'bandung',
-        },
-    ];
+    const { customers } = usePage().props;
+
     return (
-        <AuthenticatedLayout>
-            <div className="h-screen w-full overflow-y-scroll">
-                <TableCustomer customer={customerData}></TableCustomer>
-            </div>
-        </AuthenticatedLayout>
+        <GuestLayout>
+            <TableCustomer customers={customers}></TableCustomer>
+        </GuestLayout>
     );
 }

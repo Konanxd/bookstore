@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Buku;
 use Inertia\Inertia;
 use App\Models\Penulis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenulisController extends Controller
 {
     public function index()
     {
         $authors = Penulis::all();
-        return Inertia::render('Penulis', [
+        return Inertia::render('Crud/Penulis', [
             'authors' => $authors
         ]);
     }
@@ -25,7 +25,7 @@ class PenulisController extends Controller
 
         Penulis::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('penulis.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -34,15 +34,23 @@ class PenulisController extends Controller
             'nama_penulis' => 'sometimes|required|string|max:255'
         ]);
 
-        $penulis = Penulis::findOrFaill($id);
-        $penulis->update($validated);
+        $penulis = DB::table('penulis')
+            ->where('id_penulis', $id)
+            ->update($validated);
+        if (!$penulis) {
+            return redirect()->route('penulis.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('penulis.index')->with('message', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $hasRelation = Buku::where('id_penulis', $id)->exists();
+        $hasRelation = DB::table('buku')
+            ->where('id_penulis', $id)
+            ->exists();
 
         if ($hasRelation) {
             return redirect()->route('penulis.index')->withErrors([
@@ -50,7 +58,10 @@ class PenulisController extends Controller
             ]);
         }
 
-        Penulis::findOrFail($id)->delete();
-        return redirect()->noContent();
+        $penulis = Penulis::where('id_penulis', $id)->delete();
+        if (!$penulis) {
+            return redirect()->route('penulis.index')->withErrors('message', 'Data tidak ditemukan.');
+        }
+        return redirect()->route('penulis.index')->with('message', 'Data berhasil ditambahkan!');
     }
 }

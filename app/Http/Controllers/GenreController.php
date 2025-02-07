@@ -6,13 +6,14 @@ use App\Models\Buku;
 use Inertia\Inertia;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GenreController extends Controller
 {
     public function index()
     {
         $genres = Genre::all();
-        return Inertia::render('Genre', [
+        return Inertia::render('Crud/Genre', [
             'genres' => $genres
         ]);
     }
@@ -25,7 +26,7 @@ class GenreController extends Controller
 
         Genre::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('genre.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -34,15 +35,23 @@ class GenreController extends Controller
             'nama_genre' => 'sometimes|required|string|max:50'
         ]);
 
-        $genre = Genre::findOrFaill($id);
-        $genre->update($validated);
+        $genre = DB::table('genre')
+            ->where('id_genre', $id)
+            ->update($validated);
+        if (!$genre) {
+            return redirect()->route('genre.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('genre.index')->with('message', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $hasRelation = Buku::where('id_genre', $id)->exists();
+        $hasRelation = DB::table('buku')
+            ->where('id_genre', $id)
+            ->exists();
 
         if ($hasRelation) {
             return redirect()->route('genre.index')->withErrors([
@@ -50,7 +59,11 @@ class GenreController extends Controller
             ]);
         }
 
-        Genre::findOrFail($id)->delete();
-        return redirect()->noContent();
+        $genre = Genre::where('id_genre', $id)->delete();
+        if (!$genre) {
+            return redirect()->route('genre.index')->withErrors('message', 'Data tidak ditemukan.');
+        }
+
+        return redirect()->route('genre.index')->with('message', 'Data berhasil ditambahkan!');
     }
 }

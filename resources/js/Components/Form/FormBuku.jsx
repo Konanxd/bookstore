@@ -1,44 +1,107 @@
-import InputComponent from '../InputComponent';
+import { useState } from "react";
+import InputComponent from "../InputComponent";
 
-export default function FormBuku({ ...props }) {
+export default function FormBuku({ book, onSubmit, onCancel }) {
+    const [formData, setFormData] = useState({
+        judul: book?.judul || "",
+        id_penulis: book?.id_penulis || "",
+        isbn: book?.isbn || "",
+        id_penerbit: book?.id_penerbit || "",
+        tahun_terbit: book?.tahun_terbit || "",
+        id_genre: book?.id_genre || "",
+        harga: book?.harga || "",
+        stok: book?.stok || "",
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (onSubmit) onSubmit(formData);
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-zinc-900/80">
             <form
-                action="POST"
+                onSubmit={handleSubmit}
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah buku</h1>
+                <h1 className="font-bold uppercase">
+                    {book ? "Edit Buku" : "Tambah Buku"}
+                </h1>
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
-                    <InputComponent id="id_buku" title="id" type="text" />
-                    <InputComponent id="judul" title="judul" type="text" />
-                    <InputComponent id="penulis" title="penulis" type="text" />
-                    <InputComponent id="isbn" title="isbn" type="text" />
                     <InputComponent
-                        id="penerbit"
-                        title="penerbit"
+                        id="judul"
+                        title="Judul"
                         type="text"
+                        value={formData.judul}
+                        onChange={handleChange}
                     />
                     <InputComponent
-                        id="tahunTerbit"
-                        title="tahun terbit"
+                        id="id_penulis"
+                        title="ID Penulis"
                         type="text"
+                        value={formData.id_penulis}
+                        onChange={handleChange}
                     />
-                    <InputComponent id="genre" title="genre" type="text" />
-                    <InputComponent id="harga" title="harga" type="number" />
-                    <InputComponent id="stok" title="stok" type="number" />
+                    <InputComponent
+                        id="isbn"
+                        title="ISBN"
+                        type="text"
+                        value={formData.isbn}
+                        onChange={handleChange}
+                    />
+                    <InputComponent
+                        id="id_penerbit"
+                        title="ID Penerbit"
+                        type="text"
+                        value={formData.id_penerbit}
+                        onChange={handleChange}
+                    />
+                    <InputComponent
+                        id="tahun_terbit"
+                        title="Tahun Terbit"
+                        type="text"
+                        value={formData.tahun_terbit}
+                        onChange={handleChange}
+                    />
+                    <InputComponent
+                        id="id_genre"
+                        title="ID Genre"
+                        type="text"
+                        value={formData.id_genre}
+                        onChange={handleChange}
+                    />
+                    <InputComponent
+                        id="harga"
+                        title="Harga"
+                        type="number"
+                        value={formData.harga}
+                        onChange={handleChange}
+                    />
+                    <InputComponent
+                        id="stok"
+                        title="Stok"
+                        type="number"
+                        value={formData.stok}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="flex w-full flex-row justify-end gap-4">
                     <button
                         className="rounded-md bg-blue-500 px-4 py-2 uppercase text-white"
                         type="submit"
                     >
-                        submit
+                        Submit
                     </button>
                     <button
-                        {...props}
                         className="rounded-md bg-zinc-500 px-4 py-2 uppercase text-white"
+                        type="button"
+                        onClick={onCancel}
                     >
-                        cancel
+                        Cancel
                     </button>
                 </div>
             </form>

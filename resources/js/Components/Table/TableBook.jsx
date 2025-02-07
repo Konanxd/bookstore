@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CrudHead from "../CrudHead";
 import FormBuku from "../Form/FormBuku";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
+import { router, usePage } from "@inertiajs/react";
 
 const tableHeaders = [
     "ID Buku",
@@ -20,11 +21,11 @@ const tableHeaders = [
 const tableFields = [
     "id_buku",
     "judul",
-    "penulis",
+    "id_penulis",
     "isbn",
-    "penerbit",
+    "id_penerbit",
     "tahun_terbit",
-    "genre",
+    "id_genre",
     "harga",
     "stok",
 ];
@@ -32,14 +33,80 @@ const tableFields = [
 const commonCellClass = "py-5 relative";
 const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3";
 
-export default function TableBook({ books }) {
+export default function TableBook() {
+    const { books } = usePage().props;
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
+    const [selectedBook, setSelectedBook] = useState(null);
+
+    const handleEdit = (book) => {
+        setSelectedBook(book);
+        setEditOpen(true);
+    };
+
+    const handleAddBook = (newData) => {
+        router.post("/buku", newData, {
+            onSuccess: () => {
+                alert("Buku berhasil ditambahkan!");
+                setTambahOpen(false);
+            },
+            onError: () => {
+                alert(
+                    "Gagal menambahkan buku. Terjadi kesalahan atau judul buku sudah tersedia."
+                );
+            },
+        });
+    };
+
+    const handleDelete = (id) => {
+        if (window.confirm("Anda yakin ingin menghapus data ini?")) {
+            router.delete(`/buku/${id}`, {
+                onSuccess: () => {
+                    alert("Buku berhasil dihapus!");
+                },
+                onError: () => {
+                    alert(
+                        "Terjadi kesalahan atau buku masih tersedia di tabel lain."
+                    );
+                },
+            });
+        }
+    };
+
+    const handleUpdate = (updatedData) => {
+        router.put(`/buku/${selectedBook.id_buku}`, updatedData, {
+            onSuccess: () => {
+                alert("Book updated successfully!");
+                setEditOpen(false);
+                setSelectedBook(null);
+            },
+            onError: () => {
+                alert("Failed to update book.");
+            },
+        });
+    };
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
-            <CrudHead title="Buku" onClick={() => setTambahOpen(!TambahOpen)} />
-            {TambahOpen && <FormBuku onClick={() => setTambahOpen(false)} />}
+            <CrudHead title="Buku" onClick={() => setTambahOpen(true)} />
+
+            {TambahOpen && (
+                <FormBuku
+                    onSubmit={handleAddBook}
+                    onCancel={() => setTambahOpen(false)}
+                />
+            )}
+
+            {EditOpen && selectedBook && (
+                <FormBuku
+                    book={selectedBook}
+                    onSubmit={handleUpdate}
+                    onCancel={() => {
+                        setEditOpen(false);
+                        setSelectedBook(null);
+                    }}
+                />
+            )}
 
             <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
                 <thead>
@@ -65,18 +132,21 @@ export default function TableBook({ books }) {
                                 </td>
                             ))}
                             <td className={commonCellClass}>
+                                {/* Edit Button */}
                                 <button
                                     className="rounded bg-blue-500 px-2 py-2 text-white"
-                                    onClick={() => setTambahOpen(!TambahOpen)}
+                                    onClick={() => {
+                                        handleEdit(book);
+                                    }}
                                 >
                                     <PenIcon className="size-3 fill-white" />
-                                    {EditOpen && (
-                                        <FormBuku
-                                            onClick={() => setEditOpen(false)}
-                                        />
-                                    )}
                                 </button>
-                                <button className="ml-2 rounded bg-red-500 px-2 py-2 text-white">
+
+                                {/* Delete Button */}
+                                <button
+                                    onClick={() => handleDelete(book.id_buku)}
+                                    className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
+                                >
                                     <TrashIcon className="size-3 fill-white" />
                                 </button>
                             </td>

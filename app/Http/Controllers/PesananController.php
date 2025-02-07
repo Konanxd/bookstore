@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pembayaran;
 use Inertia\Inertia;
 use App\Models\Pesanan;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
@@ -28,7 +29,7 @@ class PesananController extends Controller
 
         Pesanan::create($validated);
 
-        return redirect()->noContent();
+        return redirect()->route('pesanan.index')->with('message', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -40,15 +41,23 @@ class PesananController extends Controller
             'tanggal_pesanan' => 'required|date|max_digits:10',
         ]);
 
-        $Pesanan = Pesanan::findOrFaill($id);
-        $Pesanan->update($validated);
+        $pesanan = DB::table('pesanan')
+            ->where('id_pesanan', $id)
+            ->update($validated);
+        if (!$pesanan) {
+            return redirect()->route('pesanan.index')->withErrors([
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
 
-        return redirect()->noContent();
+        return redirect()->route('pesanan.index')->with('message', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $hasRelation = Pembayaran::where('id_pesanan', $id)->exists();
+        $hasRelation = DB::table('pembayaran')
+            ->where('id_pesanan', $id)
+            ->exists();
 
         if ($hasRelation) {
             return redirect()->route('pesanan.index')->withErrors([
@@ -56,7 +65,11 @@ class PesananController extends Controller
             ]);
         }
 
-        Pesanan::findOrFail($id)->delete();
-        return redirect()->noContent();
+        $pesanan = Pesanan::where('id_pesanan', $id)->delete();
+        if (!$pesanan) {
+            return redirect()->route('pesanan.index')->withErrors('message', 'Data tidak ditemukan.');
+        }
+
+        return redirect()->route('pesanan.index')->with('message', 'Data berhasil dihapus!');
     }
 }
