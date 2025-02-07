@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
@@ -27,9 +28,7 @@ use Inertia\Inertia;
 //     [BukuController::class, 'index']
 // )->name('buku.index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
 Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');

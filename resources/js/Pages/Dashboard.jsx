@@ -1,14 +1,21 @@
-import Navbar from "@/Components/navbar";
-import TableBook from "@/Components/Table/TableBook";
 import { usePage } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
+import GenreDistributionChart from "@/Components/Chart/GenreDistributionChart";
+import BookStockChart from "@/Components/Chart/BookStockChart";
+import SalesOverTimeChart from "@/Components/Chart/SalesOverTimeChart";
 
 export default function Dashboard() {
-    const { books } = usePage().props;
+    const { genreDistribution, bookStockLevels, salesOverTime } =
+        usePage().props;
+    // console.log(salesOverTime);
 
     return (
         <GuestLayout>
-            <TableBook books={books}></TableBook>
+            <div className="grid grid-flow-row">
+                <GenreDistributionChart data={genreDistribution} />
+                <BookStockChart data={bookStockLevels} />
+                <SalesOverTimeChart data={salesOverTime} />
+            </div>
         </GuestLayout>
     );
 }
