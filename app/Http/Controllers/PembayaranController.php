@@ -13,7 +13,7 @@ class PembayaranController extends Controller
     public function index()
     {
         $payments = Pembayaran::all();
-        return Inertia::render('Pembayaran', [
+        return Inertia::render('Crud/Pembayaran', [
             'publishers' => $payments
         ]);
     }
@@ -24,7 +24,7 @@ class PembayaranController extends Controller
             'id_pesanan' => 'required|integer|max_digits:10',
             'tanggal_pembayaran' => 'required|date',
             'total_pembayaran' => 'required|integer',
-            'stat_bayar' => 'required|string|max:255',
+            'stat_pembayaran' => 'required|string|max:255',
         ]);
 
         Pembayaran::create($validated);
@@ -38,7 +38,7 @@ class PembayaranController extends Controller
             'id_pesanan' => 'required|integer|max_digits:10',
             'tanggal_pembayaran' => 'required|date',
             'total_pembayaran' => 'required|integer',
-            'stat_bayar' => 'required|string|max:255',
+            'stat_pembayaran' => 'required|string|max:255',
         ]);
 
         $pembayaran = DB::table('pembayaran')

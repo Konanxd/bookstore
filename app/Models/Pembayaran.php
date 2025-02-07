@@ -12,7 +12,7 @@ class Pembayaran extends Model
         'id_pesanan',
         'tanggal_pembayaran',
         'total_pembayaran',
-        'stat_bayar'
+        'stat_pembayaran'
     ];
 
     public function pesanan()
