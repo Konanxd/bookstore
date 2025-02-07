@@ -50,7 +50,7 @@ export default function SalesOverTimeChart({ data }) {
     };
 
     return (
-        <div className="bg-white p-5 rounded-2xl h-96 flex flex-col justify-between drop-shadow-md">
+        <div className="bg-white p-5 rounded-2xl flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
                 Total Sold Books
             </h2>

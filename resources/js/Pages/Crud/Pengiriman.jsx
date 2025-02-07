@@ -1,12 +1,12 @@
 import { usePage } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablePengiriman from "@/Components/Table/TablePengiriman";
 export default function Pengiriman() {
     const { shipments } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TablePengiriman shipments={shipments}></TablePengiriman>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

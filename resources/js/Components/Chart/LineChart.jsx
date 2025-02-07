@@ -58,7 +58,7 @@ export default function LineChart(data) {
     };
 
     return (
-        <div className="bg-white p-5 rounded-2xl w-full h-96 flex justify-center drop-shadow-md">
+        <div className="bg-white p-5 rounded-2xl w-full flex justify-center drop-shadow-md">
             <Line ref={chartRef} data={chartData} options={options} />
         </div>
     );

@@ -25,8 +25,24 @@ const TopSellingBooksChart = ({ data }) => {
             {
                 label: "Total Sold",
                 data: data.map((book) => book.total_sold),
-                backgroundColor: "rgba(54, 162, 235, 0.6)",
-                borderColor: "rgba(54, 162, 235, 1)",
+
+                backgroundColor: (context) => {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+                    if (!chartArea) return null;
+                    const gradient = ctx.createLinearGradient(
+                        0,
+                        chartArea.top,
+                        0,
+                        chartArea.bottom
+                    );
+                    gradient.addColorStop(0, "rgba(54, 162, 235, 1)");
+                    gradient.addColorStop(1, "rgba(54, 162, 235, 0.6)");
+                    return gradient;
+                },
+
+                fill: true,
+                tension: 0.3,
                 borderWidth: 1,
             },
         ],

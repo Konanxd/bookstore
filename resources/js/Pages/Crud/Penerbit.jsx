@@ -1,12 +1,12 @@
 import { usePage } from "@inertiajs/react";
 import TablePublisher from "@/Components/Table/TablePublisher";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 export default function Penerbit() {
     const { publishers } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TablePublisher publishers={publishers}></TablePublisher>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

@@ -1,13 +1,13 @@
 import { usePage } from "@inertiajs/react";
 import TableGenre from "@/Components/Table/TableGenre";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Genre() {
     const { genres } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TableGenre genres={genres}></TableGenre>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

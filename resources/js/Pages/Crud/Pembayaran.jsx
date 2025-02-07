@@ -1,12 +1,12 @@
 import { usePage } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablePembayaran from "@/Components/Table/TablePembayaran";
 export default function Pembayaran() {
     const { payments } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TablePembayaran payments={payments}></TablePembayaran>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

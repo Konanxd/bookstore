@@ -1,12 +1,12 @@
 import { usePage } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablePesanan from "@/Components/Table/TablePesanan";
 export default function Pesanan() {
     const { orders } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TablePesanan orders={orders}></TablePesanan>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

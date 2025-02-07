@@ -1,13 +1,13 @@
 import { usePage } from "@inertiajs/react";
 import TableBook from "@/Components/Table/TableBook";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Buku() {
     const { books } = usePage().props;
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <TableBook books={books}></TableBook>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

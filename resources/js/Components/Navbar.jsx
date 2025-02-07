@@ -4,7 +4,7 @@ import ResponsiveNavLink from "./ResponsiveNavLink";
 const Navbar = () => {
     return (
         <div className="inline-flex h-screen w-full max-w-[256px] flex-col overflow-hidden rounded-r-2xl bg-white drop-shadow-lg">
-            <div className="flex h-36 items-center justify-center gap-5 bg-blue-500">
+            <div className="flex h-36 items-center justify-center gap-5 bg-blue-500 fill-white text-white">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

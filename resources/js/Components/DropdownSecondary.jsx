@@ -20,10 +20,7 @@ export default function DropdownSecondary() {
                 {/* Daftar Opsi */}
                 {dashboardOpen && (
                     <div className="ml-2 flex flex-col gap-0.5 text-sm text-slate-500">
-                        <a
-                            href="/dashboard"
-                            className="capitalize hover:text-slate-800"
-                        >
+                        <a href="/" className="capitalize hover:text-slate-800">
                             Dashboard
                         </a>
                         <a
