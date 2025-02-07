@@ -31,10 +31,19 @@ class DashboardController extends Controller
             ->orderBy('month', 'ASC')
             ->get();
 
+        $topSellingBooks = DB::table('buku')
+            ->join('pesanan', 'buku.id_buku', '=', 'pesanan.id_buku')
+            ->select('buku.judul', DB::raw('SUM(pesanan.jumlah_pesanan) as total_sold'))
+            ->groupBy('buku.judul')
+            ->orderBy('total_sold', 'desc')
+            ->limit(10)
+            ->get();
+
         return Inertia::render('Dashboard', [
             'genreDistribution' => $genreDistribution,
             'bookStockLevels' => $bookStockLevels,
-            'salesOverTime' => $salesOverTime
+            'salesOverTime' => $salesOverTime,
+            'topSellingBooks' => $topSellingBooks
         ]);
     }
 }

@@ -3,12 +3,16 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import GenreDistributionChart from "@/Components/Chart/GenreDistributionChart";
 import BookStockChart from "@/Components/Chart/BookStockChart";
 import SalesOverTimeChart from "@/Components/Chart/SalesOverTimeChart";
-import LineChart from "@/Components/Chart/LineChart";
+import TopSellingBooksChart from "@/Components/Chart/TopSellingBooksChart";
 
 export default function Dashboard() {
-    const { genreDistribution, bookStockLevels, salesOverTime } =
-        usePage().props;
-    // console.log(salesOverTime);
+    const {
+        genreDistribution,
+        bookStockLevels,
+        salesOverTime,
+        topSellingBooks,
+    } = usePage().props;
+    // console.log(topSellingBooks[1]);
 
     return (
         <GuestLayout>
@@ -16,6 +20,7 @@ export default function Dashboard() {
                 <GenreDistributionChart data={genreDistribution} />
                 <BookStockChart data={bookStockLevels} />
                 <SalesOverTimeChart data={salesOverTime} />
+                <TopSellingBooksChart data={topSellingBooks} />
             </div>
         </GuestLayout>
     );

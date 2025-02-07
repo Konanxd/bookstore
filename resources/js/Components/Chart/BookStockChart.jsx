@@ -59,7 +59,7 @@ export default function BookStockChart({ data }) {
     return (
         <div className="bg-white p-5 rounded-2xl h-full flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
-                Stokc Levels
+                Stock Levels
             </h2>
             <Bar data={chartData} options={options} />
         </div>
