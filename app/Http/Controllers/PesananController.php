@@ -13,7 +13,7 @@ class PesananController extends Controller
     public function index()
     {
         $orders = Pesanan::all();
-        return Inertia::render('Pesanan', [
+        return Inertia::render('Crud/Pesanan', [
             'orders' => $orders
         ]);
     }

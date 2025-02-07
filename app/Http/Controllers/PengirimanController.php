@@ -12,7 +12,7 @@ class PengirimanController extends Controller
     public function index()
     {
         $shipments = Pengiriman::all();
-        return Inertia::render('Pengiriman', [
+        return Inertia::render('Crud/Pengiriman', [
             'shipments' => $shipments
         ]);
     }

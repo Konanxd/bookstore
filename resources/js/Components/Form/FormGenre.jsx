@@ -1,4 +1,5 @@
 import InputComponent from "../InputComponent";
+import { useState } from "react";
 
 export default function FormGenre({ data, onSubmit, onCancel }) {
     const [formData, setFormData] = useState({
@@ -38,7 +39,6 @@ export default function FormGenre({ data, onSubmit, onCancel }) {
                         submit
                     </button>
                     <button
-                        {...props}
                         className="rounded-md bg-zinc-500 px-4 py-2 uppercase text-white"
                         onClick={onCancel}
                     >

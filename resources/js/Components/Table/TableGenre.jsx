@@ -3,6 +3,7 @@ import CrudHead from "../CrudHead";
 import FormGenre from "../Form/FormGenre";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
+import { router } from "@inertiajs/react";
 
 const tableHeaders = ["ID Genre", "Nama Genre", "Aksi"];
 
@@ -53,9 +54,9 @@ export default function TableGenre({ genres }) {
     const handleUpdate = (updatedData) => {
         router.put(`/genre/${selectedItem.id_genre}`, updatedData, {
             onSuccess: () => {
-                alert("Book updated successfully!");
+                alert("Genre berhasil diubah!");
                 setEditOpen(false);
-                selectedItem(null);
+                setSelectedItem(null);
             },
             onError: () => {
                 alert("Failed to update book.");
@@ -82,7 +83,7 @@ export default function TableGenre({ genres }) {
                     onSubmit={handleUpdate}
                     onCancel={() => {
                         setEditOpen(false);
-                        selectedItem(null);
+                        setSelectedItem(null);
                     }}
                 />
             )}

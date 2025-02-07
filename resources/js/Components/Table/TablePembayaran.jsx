@@ -3,52 +3,49 @@ import CrudHead from "../CrudHead";
 import FormPembayaran from "../Form/FormPembayaran";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
-import { router, usePage } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 const tableHeaders = [
     "ID Pesanan",
     "ID Pembayaran",
+    "ID Pesanan",
     "Tanggal Pembayaran",
     "Total Pembayaran",
     "Status Pembayaran",
-    "Dibuat Pada",
-    "Diperbarui Pada",
     "Aksi",
 ];
 
 const tableFields = [
     "id_pesanan",
     "id_pembayaran",
+    "id_pesanan",
     "tanggal_pembayaran",
     "total_pembayaran",
     "stat_pembayaran",
-    "created_at",
-    "updated_at",
 ];
 
 const commonCellClass = "py-5 relative";
 const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3 capitalize";
 
 export default function TablePembayaran({ payments }) {
-    // const { payments } = usePage().props;
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
-    const [selectedItem, setSelectedPembayaran] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
 
-    const handleEdit = (pembayaran) => {
-        setSelectedPembayaran(pembayaran);
+    const handleEdit = (item) => {
+        setSelectedItem(item);
         setEditOpen(true);
     };
 
-    const handleAddPembayaran = (newData) => {
+    const handleAddItem = (newData) => {
         router.post("/pembayaran", newData, {
             onSuccess: () => {
-                alert("pembayaran berhasil ditambahkan!");
+                alert("Pembayaran berhasil ditambahkan!");
                 setTambahOpen(false);
             },
             onError: () => {
                 alert(
-                    "Gagal menambahkan Pembayaran. Terjadi kesalahan atau Pembayaran sudah tersedia."
+                    "Gagal menambahkan pembayaran. Terjadi kesalahan atau judul pembayaran sudah tersedia."
                 );
             },
         });
@@ -58,7 +55,7 @@ export default function TablePembayaran({ payments }) {
         if (window.confirm("Anda yakin ingin menghapus data ini?")) {
             router.delete(`/pembayaran/${id}`, {
                 onSuccess: () => {
-                    alert("pembayaran berhasil dihapus!");
+                    alert("Pembayaran berhasil dihapus!");
                 },
                 onError: () => {
                     alert(
@@ -72,12 +69,12 @@ export default function TablePembayaran({ payments }) {
     const handleUpdate = (updatedData) => {
         router.put(`/pembayaran/${selectedItem.id_pembayaran}`, updatedData, {
             onSuccess: () => {
-                alert("pembayaran berhasil diubah!");
+                alert("Pembayaran berhasil diubah!");
                 setEditOpen(false);
-                selectedItem(null);
+                setSelectedItem(null);
             },
             onError: () => {
-                alert("Failed to update pembayaran.");
+                alert("Failed to update book.");
             },
         });
     };
@@ -85,23 +82,23 @@ export default function TablePembayaran({ payments }) {
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
-                title="pembayaran"
+                title="Pembayaran"
                 onClick={() => setTambahOpen(!TambahOpen)}
             />
             {TambahOpen && (
                 <FormPembayaran
-                    onSubmit={handleAddPembayaran}
+                    onSubmit={handleAddItem}
                     onCancel={() => setTambahOpen(false)}
                 />
             )}
 
-            {EditOpen && (
+            {EditOpen && selectedItem && (
                 <FormPembayaran
                     data={selectedItem}
                     onSubmit={handleUpdate}
                     onCancel={() => {
                         setEditOpen(false);
-                        selectedItem(null);
+                        setSelectedItem(null);
                     }}
                 />
             )}

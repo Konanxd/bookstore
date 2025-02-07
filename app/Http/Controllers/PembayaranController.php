@@ -14,7 +14,7 @@ class PembayaranController extends Controller
     {
         $payments = Pembayaran::all();
         return Inertia::render('Crud/Pembayaran', [
-            'publishers' => $payments
+            'payments' => $payments
         ]);
     }
 
