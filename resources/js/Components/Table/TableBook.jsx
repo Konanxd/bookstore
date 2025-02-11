@@ -4,6 +4,7 @@ import FormBuku from "../Form/FormBuku";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
 import { router, usePage } from "@inertiajs/react";
+import axios from "axios";
 
 const tableHeaders = [
     "ID Buku",
@@ -11,7 +12,7 @@ const tableHeaders = [
     "Penulis",
     "ISBN",
     "Penerbit",
-    "Tahun Terbit",
+    "Tanggal Terbit",
     "Genre",
     "Harga",
     "Stok",
@@ -21,17 +22,19 @@ const tableHeaders = [
 const tableFields = [
     "id_buku",
     "judul",
-    "id_penulis",
+    "nama_penulis",
     "isbn",
-    "id_penerbit",
-    "tahun_terbit",
-    "id_genre",
+    "nama_penerbit",
+    "tanggal_terbit",
+    "nama_genre",
     "harga",
     "stok",
 ];
 
 const commonCellClass = "py-5 relative";
 const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3";
+
+export function book() {}
 
 export default function TableBook() {
     const { books } = usePage().props;

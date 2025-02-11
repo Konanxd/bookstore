@@ -21,14 +21,15 @@ export default function FormPublisher({ data, onSubmit, onCancel }) {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah penerbit</h1>
+                <h1 className="font-bold uppercase">
+                    {data ? "Edit Penerbit" : "Tambah Tambah"}
+                </h1>
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
-                    <InputComponent id="id_publisher" title="id" type="text" />
                     <InputComponent
-                        id="nama_publisher"
-                        title="nama publisher"
+                        id="nama_penerbit"
+                        title="nama penerbit"
                         type="text"
-                        value={formData.nama_genre}
+                        value={formData.nama_penerbit}
                         onChange={handleChange}
                     />
                 </div>

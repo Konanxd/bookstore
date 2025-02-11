@@ -13,7 +13,7 @@ class Buku extends Model
         'id_penulis',
         'isbn',
         'id_penerbit',
-        'tahun_terbit',
+        'tanggal_terbit',
         'id_genre',
         'harga',
         'stok'
@@ -21,16 +21,16 @@ class Buku extends Model
 
     public function penulis()
     {
-        return $this->belongsTo(Penulis::class);
+        return $this->belongsTo(Penulis::class, 'id_penulis');
     }
 
     public function penerbit()
     {
-        return $this->belongsTo(Penerbit::class);
+        return $this->belongsTo(Penerbit::class, 'id_penerbit');
     }
 
     public function genre()
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsTo(Genre::class, 'id_genre');
     }
 }

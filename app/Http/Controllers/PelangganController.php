@@ -40,7 +40,7 @@ class PelangganController extends Controller
         ]);
 
         $pelanggan = DB::table('pelanggan')
-            ->where('pelanggan', $id)
+            ->where('id_pelanggan', $id)
             ->update($validated);
         if (!$pelanggan) {
             return redirect()->route('pelanggan.index')->withErrors([

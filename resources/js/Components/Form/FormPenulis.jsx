@@ -21,13 +21,15 @@ export default function FormPenulis({ data, onSubmit, onCancel }) {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah penulis</h1>
+                <h1 className="font-bold uppercase">
+                    {data ? "Edit Penullis" : "Tambah Penulis"}
+                </h1>
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
                     <InputComponent
                         id="nama_penulis"
                         title="nama penulis"
                         type="text"
-                        value={formData.nama_pelanggan}
+                        value={formData.nama_penulis}
                         onChange={handleChange}
                     />
                 </div>

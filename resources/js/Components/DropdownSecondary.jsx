@@ -23,12 +23,6 @@ export default function DropdownSecondary() {
                         <a href="/" className="capitalize hover:text-slate-800">
                             Dashboard
                         </a>
-                        <a
-                            href="/analytics"
-                            className="capitalize hover:text-slate-800"
-                        >
-                            Analytics
-                        </a>
                     </div>
                 )}
             </div>

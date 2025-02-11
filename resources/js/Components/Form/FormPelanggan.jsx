@@ -23,7 +23,9 @@ export default function FormPelanggan({ data, onSubmit, onCancel }) {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah pelanggan</h1>
+                <h1 className="font-bold uppercase">
+                    {data ? "Edit Pelanggan" : "Tambah Pelanggan"}
+                </h1>
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
                     <InputComponent
                         id="nama_pelanggan"
@@ -40,7 +42,7 @@ export default function FormPelanggan({ data, onSubmit, onCancel }) {
                         onChange={handleChange}
                     />
                     <InputComponent
-                        id="alamat"
+                        id="alamat_pelanggan"
                         title="alamat"
                         type="text"
                         value={formData.alamat_pelanggan}

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use Inertia\Inertia;
+use App\Models\Genre;
+use App\Models\Penulis;
 use App\Models\Pesanan;
+use App\Models\Penerbit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,11 +15,22 @@ class BukuController extends Controller
 {
     public function index()
     {
-        $books = Buku::all();
+        $books = Buku::select(
+            'buku.*',
+            'penulis.nama_penulis as nama_penulis',
+            'penerbit.nama_penerbit as nama_penerbit',
+            'genre.nama_genre as nama_genre'
+        )
+            ->leftJoin('penulis', 'buku.id_penulis', '=', 'penulis.id_penulis')
+            ->leftJoin('penerbit', 'buku.id_penerbit', '=', 'penerbit.id_penerbit')
+            ->leftJoin('genre', 'buku.id_genre', '=', 'genre.id_genre')
+            ->get();
+
         return Inertia::render('Crud/Buku', [
             'books' => $books
         ]);
     }
+
 
     public function store(Request $request)
     {
@@ -33,7 +47,7 @@ class BukuController extends Controller
 
         Buku::create($validated);
 
-        return redirect()->route('buku.index')->with('message', 'Data berhasil ditambahkan!');
+        return redirect()->route('buku.index')->with(['message' => 'Data berhasil ditambahkan!'], 201);
     }
 
     public function update(Request $request, $id)

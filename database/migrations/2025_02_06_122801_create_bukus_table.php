@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penulis');
             $table->string('isbn', 13);
             $table->unsignedBigInteger('id_penerbit');
-            $table->date('tahun_terbit');
+            $table->date('tanggal_terbit');
             $table->unsignedBigInteger('id_genre');
             $table->integer('harga');
             $table->integer('stok');

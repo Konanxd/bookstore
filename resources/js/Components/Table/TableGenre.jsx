@@ -59,7 +59,7 @@ export default function TableGenre({ genres }) {
                 setSelectedItem(null);
             },
             onError: () => {
-                alert("Failed to update book.");
+                alert("Gagal mengubah genre!");
             },
         });
     };
@@ -79,7 +79,7 @@ export default function TableGenre({ genres }) {
 
             {EditOpen && selectedItem && (
                 <FormGenre
-                    book={selectedItem}
+                    data={selectedItem}
                     onSubmit={handleUpdate}
                     onCancel={() => {
                         setEditOpen(false);

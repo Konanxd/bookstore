@@ -10,6 +10,7 @@ use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PenulisController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AutocompleteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,14 @@ use Inertia\Inertia;
 //     '/',
 //     [BukuController::class, 'index']
 // )->name('buku.index');
+
+
+Route::get('/api/autocomplete/genre', [AutocompleteController::class, 'genre']);
+Route::get('/api/autocomplete/genre_nama', [AutocompleteController::class, 'genreNama']);
+Route::get('/api/autocomplete/penulis', [AutocompleteController::class, 'penulis']);
+Route::get('/api/autocomplete/penulis_nama', [AutocompleteController::class, 'penulisNama']);
+Route::get('/api/autocomplete/penerbit', [AutocompleteController::class, 'penerbit']);
+Route::get('/api/autocomplete/penerbit_nama', [AutocompleteController::class, 'penerbitNama']);
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -69,9 +78,6 @@ Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiri
 Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store');
 Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update');
 Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
-
-
-
 
 
 Route::middleware('auth')->group(function () {
