@@ -16,6 +16,7 @@ export default function TableWriter({ authors }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleEdit = (item) => {
         setSelectedItem(item);
@@ -63,13 +64,24 @@ export default function TableWriter({ authors }) {
             },
         });
     };
+    const searchAuthors = authors.filter((author) =>
+        author.nama_penulis.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
                 title="Penulis"
                 onClick={() => setTambahOpen(!TambahOpen)}
-            />
+            >
+                <input
+                    type="text"
+                    placeholder="Cari Penulis..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="p-2 border rounded-md w-full"
+                />
+            </CrudHead>
             {TambahOpen && (
                 <FormPenulis
                     onSubmit={handleAddItem}
@@ -100,7 +112,7 @@ export default function TableWriter({ authors }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {authors.map((author) => (
+                    {searchAuthors.map((author) => (
                         <tr
                             key={author.id_penulis}
                             className="border-b-2 border-gray-200 text-center"

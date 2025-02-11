@@ -1,7 +1,8 @@
-export default function CrudHead({ title, ...props }) {
+export default function CrudHead({ title, children, ...props }) {
     return (
         <div className="flex flex-row items-center justify-between">
             <h1 className="text-2xl font-bold uppercase">{title}</h1>
+            {children && <div className="flex w-2/4">{children}</div>}
             <button
                 {...props}
                 type="button"

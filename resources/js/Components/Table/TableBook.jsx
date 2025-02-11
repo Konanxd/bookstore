@@ -41,6 +41,7 @@ export default function TableBook() {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleEdit = (book) => {
         setSelectedBook(book);
@@ -89,9 +90,21 @@ export default function TableBook() {
         });
     };
 
+    const Books = books.filter((book) =>
+        book.judul.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
-            <CrudHead title="Buku" onClick={() => setTambahOpen(true)} />
+            <CrudHead title="Buku" onClick={() => setTambahOpen(true)}>
+                <input
+                    type="text"
+                    placeholder="Cari buku..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="p-2 border rounded-md w-full"
+                />
+            </CrudHead>
 
             {TambahOpen && (
                 <FormBuku
@@ -124,7 +137,7 @@ export default function TableBook() {
                     </tr>
                 </thead>
                 <tbody>
-                    {books.map((book) => (
+                    {Books.map((book) => (
                         <tr
                             key={book.id_buku}
                             className="border-b-2 border-gray-200 text-center"
@@ -135,7 +148,6 @@ export default function TableBook() {
                                 </td>
                             ))}
                             <td className={commonCellClass}>
-                                {/* Edit Button */}
                                 <button
                                     className="rounded bg-blue-500 px-2 py-2 text-white"
                                     onClick={() => {
@@ -145,7 +157,6 @@ export default function TableBook() {
                                     <PenIcon className="size-3 fill-white" />
                                 </button>
 
-                                {/* Delete Button */}
                                 <button
                                     onClick={() => handleDelete(book.id_buku)}
                                     className="ml-2 rounded bg-red-500 px-2 py-2 text-white"

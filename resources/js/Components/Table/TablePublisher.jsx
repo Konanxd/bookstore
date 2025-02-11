@@ -16,6 +16,7 @@ export default function TablePublisher({ publishers }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleEdit = (item) => {
         setSelectedItem(item);
@@ -63,13 +64,26 @@ export default function TablePublisher({ publishers }) {
             },
         });
     };
+    const searchPublisher = publishers.filter((Publisher) =>
+        Publisher.nama_penerbit
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
                 title="Publisher"
                 onClick={() => setTambahOpen(!TambahOpen)}
-            />
+            >
+                <input
+                    type="text"
+                    placeholder="Cari Penerbit..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="p-2 border rounded-md w-full"
+                />
+            </CrudHead>
             {TambahOpen && (
                 <FormPublisher
                     onSubmit={handleAddItem}
@@ -101,7 +115,7 @@ export default function TablePublisher({ publishers }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {publishers.map((penerbit) => (
+                    {searchPublisher.map((penerbit) => (
                         <tr
                             key={penerbit.id_penerbit}
                             className="border-b-2 border-gray-200 text-center"

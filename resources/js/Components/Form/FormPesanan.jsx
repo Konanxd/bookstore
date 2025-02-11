@@ -15,6 +15,19 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Validate foreign keys
+        const newErrors = {
+            id_penulis: !formData.id_penulis,
+            id_penerbit: !formData.id_penerbit,
+            id_genre: !formData.id_genre,
+        };
+
+        setErrors(newErrors);
+        // Prevent submission if any required foreign key is missing
+        if (Object.values(newErrors).some((error) => error)) {
+            return;
+        }
+
         if (onSubmit) onSubmit(formData);
     };
 
@@ -33,6 +46,7 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
                         value={formData.id_pelanggan}
                         onChange={handleChange}
                     />
+
                     <InputComponent
                         id="id_buku"
                         title="id buku"

@@ -10,7 +10,7 @@ export default function FormBuku({ book, onSubmit, onCancel }) {
         isbn: book?.isbn || "",
         id_penerbit: book?.id_penerbit || "",
         nama_penerbit: book?.nama_penerbit || "",
-        tahun_terbit: book?.tahun_terbit || "",
+        tanggal_terbit: book?.tanggal_terbit || "",
         id_genre: book?.id_genre || "",
         nama_genre: book?.nama_genre || "",
         harga: book?.harga || "",
@@ -64,22 +64,29 @@ export default function FormBuku({ book, onSubmit, onCancel }) {
                         value={formData.judul}
                         onChange={handleChange}
                     />
-                    <AutocompleteInput
-                        label="Penulis"
-                        apiUrl="/api/autocomplete/penulis"
-                        selectedId={formData.id_penulis}
-                        setSelectedId={(id) => {
-                            setFormData({ ...formData, id_penulis: id });
-                            setErrors((prev) => ({ ...prev, id_penulis: !id }));
-                        }}
-                        selectedName={formData.nama_penulis}
-                        setSelectedName={(nama) =>
-                            setFormData({ ...formData, nama_penulis: nama })
-                        }
-                    />
-                    {errors.id_penulis && (
-                        <p className="text-red-500">Penulis harus dipilih!</p>
-                    )}
+                    <div className="flex flex-col gap-1">
+                        <AutocompleteInput
+                            label="Penulis"
+                            apiUrl="/api/autocomplete/penulis"
+                            selectedId={formData.id_penulis}
+                            setSelectedId={(id) => {
+                                setFormData({ ...formData, id_penulis: id });
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    id_penulis: !id,
+                                }));
+                            }}
+                            selectedName={formData.nama_penulis}
+                            setSelectedName={(nama) =>
+                                setFormData({ ...formData, nama_penulis: nama })
+                            }
+                        />
+                        {errors.id_penulis && (
+                            <p className="text-red-500">
+                                Penulis harus dipilih!
+                            </p>
+                        )}
+                    </div>
 
                     <InputComponent
                         id="isbn"
@@ -88,49 +95,63 @@ export default function FormBuku({ book, onSubmit, onCancel }) {
                         value={formData.isbn}
                         onChange={handleChange}
                     />
-                    <AutocompleteInput
-                        label="Penerbit"
-                        apiUrl="/api/autocomplete/penerbit"
-                        selectedId={formData.id_penerbit}
-                        setSelectedId={(id) => {
-                            setFormData({ ...formData, id_penerbit: id });
-                            setErrors((prev) => ({
-                                ...prev,
-                                id_penerbit: !id,
-                            }));
-                        }}
-                        selectedName={formData.nama_penerbit}
-                        setSelectedName={(nama) =>
-                            setFormData({ ...formData, nama_penerbit: nama })
-                        }
-                    />
-                    {errors.id_penerbit && (
-                        <p className="text-red-500">Penerbit harus dipilih!</p>
-                    )}
+                    <div className="flex flex-col gap-1">
+                        <AutocompleteInput
+                            label="Penerbit"
+                            apiUrl="/api/autocomplete/penerbit"
+                            selectedId={formData.id_penerbit}
+                            setSelectedId={(id) => {
+                                setFormData({ ...formData, id_penerbit: id });
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    id_penerbit: !id,
+                                }));
+                            }}
+                            selectedName={formData.nama_penerbit}
+                            setSelectedName={(nama) =>
+                                setFormData({
+                                    ...formData,
+                                    nama_penerbit: nama,
+                                })
+                            }
+                        />
+                        {errors.id_penerbit && (
+                            <p className="text-red-500">
+                                Penerbit harus dipilih!
+                            </p>
+                        )}
+                    </div>
 
                     <InputComponent
-                        id="tahun_terbit"
-                        title="Tahun Terbit"
-                        type="text"
-                        value={formData.tahun_terbit}
+                        id="tanggal_terbit"
+                        title="Tanggal Terbit"
+                        type="date"
+                        value={formData.tanggal_terbit}
                         onChange={handleChange}
                     />
-                    <AutocompleteInput
-                        label="Genre"
-                        apiUrl="/api/autocomplete/genre"
-                        selectedId={formData.id_genre}
-                        setSelectedId={(id) => {
-                            setFormData({ ...formData, id_genre: id });
-                            setErrors((prev) => ({ ...prev, id_genre: !id }));
-                        }}
-                        selectedName={formData.nama_genre}
-                        setSelectedName={(nama) =>
-                            setFormData({ ...formData, nama_genre: nama })
-                        }
-                    />
-                    {errors.id_genre && (
-                        <p className="text-red-500">Genre harus dipilih!</p>
-                    )}
+                    <div className="flex flex-col gap-1">
+                        <AutocompleteInput
+                            label="Genre"
+                            apiUrl="/api/autocomplete/genre"
+                            selectedId={formData.id_genre}
+                            setSelectedId={(id) => {
+                                setFormData({ ...formData, id_genre: id });
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    id_genre: !id,
+                                }));
+                            }}
+                            selectedName={formData.nama_genre}
+                            setSelectedName={(nama) =>
+                                setFormData({ ...formData, nama_genre: nama })
+                            }
+                        />
+                        {errors.id_genre && (
+                            <p className="text-red-500 inline-block">
+                                Genre harus dipilih!
+                            </p>
+                        )}
+                    </div>
 
                     <InputComponent
                         id="harga"

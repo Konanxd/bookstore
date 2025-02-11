@@ -39,7 +39,7 @@ class BukuController extends Controller
             'id_penulis' => 'sometimes|required|integer|max_digits:10',
             'isbn' => 'nullable|string|max:13',
             'id_penerbit' => 'sometimes|required|integer|max_digits:10',
-            'tahun_terbit' => 'sometimes|required|date',
+            'tanggal_terbit' => 'sometimes|required|date',
             'id_genre' => 'sometimes|required|integer|max_digits:10',
             'harga' => 'sometimes|required|integer',
             'stok' => 'sometimes|required|integer|max_digits:5'
@@ -57,7 +57,7 @@ class BukuController extends Controller
             'id_penuls' => 'sometimes|required|integer|max_digits:10',
             'isbn' => 'nullable|string|max:13',
             'id_penerbit' => 'sometimes|required|integer|max_digits:10',
-            'tahun_terbit' => 'sometimes|required|string',
+            'tanggal_terbit' => 'sometimes|required|string',
             'id_genre' => 'sometimes|required|integer|max_digits:10',
             'harga' => 'sometimes|required|integer',
             'stok' => 'sometimes|required|integer|max_digits:5'

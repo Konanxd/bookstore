@@ -28,6 +28,7 @@ export default function TableCustomer({ customers }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleEdit = (item) => {
         setSelectedItem(item);
@@ -76,12 +77,26 @@ export default function TableCustomer({ customers }) {
         });
     };
 
+    const searchCustomers = customers.filter((customer) =>
+        customer.nama_pelanggan
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
                 title="Pelanggan"
                 onClick={() => setTambahOpen(!TambahOpen)}
-            />
+            >
+                <input
+                    type="text"
+                    placeholder="Cari Customer..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="p-2 border rounded-md w-full"
+                />
+            </CrudHead>
             {TambahOpen && (
                 <FormPelanggan
                     onSubmit={handleAddItem}
@@ -113,7 +128,7 @@ export default function TableCustomer({ customers }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {customers.map((customer) => (
+                    {searchCustomers.map((customer) => (
                         <tr
                             key={customer.id_pelanggan}
                             className="border-b-2 border-gray-200 text-center"
