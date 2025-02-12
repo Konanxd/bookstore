@@ -6,22 +6,22 @@ import TrashIcon from "../Icon/TrashIcon";
 import { router } from "@inertiajs/react";
 
 const tableHeaders = [
-    "ID Pesanan",
     "ID Pembayaran",
     "ID Pesanan",
+    "Nama Pelanggan",
     "Tanggal Pembayaran",
     "Total Pembayaran",
-    "Status Pembayaran",
+    "Metode Pembayaran",
     "Aksi",
 ];
 
 const tableFields = [
-    "id_pesanan",
     "id_pembayaran",
     "id_pesanan",
+    "nama_pelanggan",
     "tanggal_pembayaran",
     "total_pembayaran",
-    "stat_pembayaran",
+    "metode_pembayaran",
 ];
 
 const commonCellClass = "py-5 relative";
@@ -31,6 +31,7 @@ export default function TablePembayaran({ payments }) {
     const [TambahOpen, setTambahOpen] = useState(false);
     const [EditOpen, setEditOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleEdit = (item) => {
         setSelectedItem(item);
@@ -79,12 +80,24 @@ export default function TablePembayaran({ payments }) {
         });
     };
 
+    const Payments = payments.filter((payment) =>
+        payment.nama_pelanggan.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
                 title="Pembayaran"
                 onClick={() => setTambahOpen(!TambahOpen)}
-            />
+            >
+                <input
+                    type="text"
+                    placeholder="Cari nama pelanggan..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="p-2 border rounded-md w-full"
+                />
+            </CrudHead>
             {TambahOpen && (
                 <FormPembayaran
                     onSubmit={handleAddItem}
@@ -116,7 +129,7 @@ export default function TablePembayaran({ payments }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {payments.map((payment) => (
+                    {Payments.map((payment) => (
                         <tr
                             key={payment.id_pembayaran}
                             className="border-b-2 border-gray-200 text-center"

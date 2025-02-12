@@ -8,7 +8,7 @@ export default function GenreDistributionChart({ data }) {
         labels: data.map((item) => item.Genre),
         datasets: [
             {
-                label: "Genre Distribution",
+                label: "Nilai Distribusi",
                 data: data.map((item) => item.Total),
                 backgroundColor: [
                     "#FF6384",
@@ -39,7 +39,7 @@ export default function GenreDistributionChart({ data }) {
     return (
         <div className="bg-white p-5 rounded-2xl flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
-                Genre Distribution
+                Distribusi Genre
             </h2>
             <Pie data={chartData} options={options} className="" />
         </div>

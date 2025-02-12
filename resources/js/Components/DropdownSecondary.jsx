@@ -92,16 +92,10 @@ export default function DropdownSecondary() {
                             pesanan
                         </a>
                         <a
-                            href="/pengiriman"
+                            href="/pesanan_buku"
                             className="capitalize hover:text-slate-800"
                         >
-                            pengiriman
-                        </a>
-                        <a
-                            href="/pembayaran"
-                            className="capitalize hover:text-slate-800"
-                        >
-                            pembayaran
+                            pesanan buku
                         </a>
                     </div>
                 )}

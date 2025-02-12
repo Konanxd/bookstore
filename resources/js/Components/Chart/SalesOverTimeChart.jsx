@@ -23,7 +23,7 @@ export default function SalesOverTimeChart({ data }) {
         labels: data.map((item) => item.month),
         datasets: [
             {
-                label: "Books Sold Over Time",
+                label: "Pendapatan (Rp)",
                 data: data.map((item) => item.total_sold),
                 borderColor: "rgba(255, 99, 132, 1)",
                 backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -36,12 +36,12 @@ export default function SalesOverTimeChart({ data }) {
     const options = {
         responsive: true,
         scales: {
+            beginAtZero: true,
             y: {
-                beginAtZero: true,
-                title: { display: true, text: "Total Books Sold" },
+                title: { display: true, text: "Total Pendapatan (Rupiah)" },
             },
             x: {
-                title: { display: true, text: "Date" },
+                title: { display: true, text: "Bulan" },
                 grid: {
                     display: false,
                 },
@@ -52,7 +52,7 @@ export default function SalesOverTimeChart({ data }) {
     return (
         <div className="bg-white p-5 rounded-2xl flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
-                Total Sold Books
+                Total Pendapatan Bulanan pada Tahun 2024
             </h2>
             <Line data={chartData} options={options} />
         </div>

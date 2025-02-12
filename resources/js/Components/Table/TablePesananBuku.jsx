@@ -7,16 +7,18 @@ import { router } from "@inertiajs/react";
 
 const tableHeaders = [
     "ID pesanan",
-    "ID pelanggan",
+    "Judul Buku",
     "Nama pelanggan",
+    "Jumlah Pesanan",
     "Tanggal Pesanan",
     "Aksi",
 ];
 
 const tableFields = [
     "id_pesanan",
-    "id_pelanggan",
+    "judul",
     "nama_pelanggan",
+    "jumlah_pesanan",
     "tanggal_pesanan",
 ];
 
@@ -34,23 +36,23 @@ export default function TablePesanan({ orders }) {
         setEditOpen(true);
     };
 
-    const handleAddItem = (newData) => {
-        router.post("/pesanan", newData, {
-            onSuccess: () => {
-                alert("Pesanan berhasil ditambahkan!");
-                setTambahOpen(false);
-            },
-            onError: () => {
-                alert(
-                    "Gagal menambahkan pesanan. Terjadi kesalahan atau judul pesanan sudah tersedia."
-                );
-            },
-        });
-    };
+    // const handleAddItem = (newData) => {
+    //     router.post("/pesanan", newData, {
+    //         onSuccess: () => {
+    //             alert("Pesanan berhasil ditambahkan!");
+    //             setTambahOpen(false);
+    //         },
+    //         onError: () => {
+    //             alert(
+    //                 "Gagal menambahkan pesanan. Terjadi kesalahan atau judul pesanan sudah tersedia."
+    //             );
+    //         },
+    //     });
+    // };
 
     const handleDelete = (id) => {
         if (window.confirm("Anda yakin ingin menghapus data ini?")) {
-            router.delete(`/pesanan/${id}`, {
+            router.delete(`/pesanan_buku/${id}`, {
                 onSuccess: () => {
                     alert("Pesanan berhasil dihapus!");
                 },
@@ -64,7 +66,7 @@ export default function TablePesanan({ orders }) {
     };
 
     const handleUpdate = (updatedData) => {
-        router.put(`/pesanan/${selectedItem.id_pesanan}`, updatedData, {
+        router.put(`/pesanan_buku/${selectedItem.id_pesanan}`, updatedData, {
             onSuccess: () => {
                 alert("Pesanan berhasil diubah!");
                 setEditOpen(false);
@@ -83,7 +85,7 @@ export default function TablePesanan({ orders }) {
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
             <CrudHead
-                title="Pesanan"
+                title="Pesanan Buku"
                 onClick={() => setTambahOpen(!TambahOpen)}
             >
                 <input
@@ -94,12 +96,12 @@ export default function TablePesanan({ orders }) {
                     className="p-2 border rounded-md w-full"
                 />
             </CrudHead>
-            {TambahOpen && (
+            {/* {TambahOpen && (
                 <FormPesanan
                     onSubmit={handleAddItem}
                     onCancel={() => setTambahOpen(false)}
                 />
-            )}
+            )} */}
 
             {EditOpen && selectedItem && (
                 <FormPesanan

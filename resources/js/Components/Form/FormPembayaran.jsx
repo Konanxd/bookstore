@@ -4,9 +4,10 @@ import { useState } from "react";
 export default function FormPembayaran({ data, onSubmit, onCancel }) {
     const [formData, setFormData] = useState({
         id_pesanan: data?.id_pesanan || "",
+        nama_pelanggan: data?.nama_pelanggan || "",
         tanggal_pembayaran: data?.tanggal_pembayaran || "",
         total_pembayaran: data?.total_pembayaran || "",
-        stat_pembayaran: data?.stat_pembayaran || "",
+        metode_pembayaran: data?.metode_pembayaran || "",
     });
 
     const handleChange = (e) => {
@@ -45,13 +46,6 @@ export default function FormPembayaran({ data, onSubmit, onCancel }) {
                         title="Total Pembayaran"
                         type="number"
                         value={formData.total_pembayaran}
-                        onChange={handleChange}
-                    />
-                    <InputComponent
-                        id="stat_pembayaran"
-                        title="Status Pembayaran"
-                        type="text"
-                        value={formData.stat_pembayaran}
                         onChange={handleChange}
                     />
                 </div>

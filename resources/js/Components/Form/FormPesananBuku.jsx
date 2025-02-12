@@ -5,12 +5,16 @@ import { useState } from "react";
 export default function FormPesanan({ data, onSubmit, onCancel }) {
     const [formData, setFormData] = useState({
         id_pelanggan: data?.id_pelanggan || "",
+        id_buku: data?.id_buku || "",
+        judul: data?.judul || "",
+        id_pelanggan: data?.id_pelanggan || "",
         nama_pelanggan: data?.nama_pelanggan || "",
+        jumlah_pesanan: data?.jumlah_pesanan || "",
         tanggal_pesanan: data?.tanggal_pesanan || "",
     });
 
     const [errors, setErrors] = useState({
-        id_pelanggan: false,
+        id_buku: false,
     });
 
     const handleChange = (e) => {
@@ -19,13 +23,11 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validate foreign keys
         const newErrors = {
-            id_pelanggan: !formData.id_pelanggan,
+            id_buku: !formData.id_buku,
         };
 
         setErrors(newErrors);
-        // Prevent submission if any required foreign key is missing
         if (Object.values(newErrors).some((error) => error)) {
             return;
         }
@@ -45,36 +47,34 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
                 <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
                     <div className="flex flex-col gap-1">
                         <AutocompleteInput
-                            label="Nama Pelanggan"
-                            apiUrl="/api/autocomplete/pelanggan"
-                            selectedId={formData.id_pelanggan}
+                            label="Judul"
+                            apiUrl="/api/autocomplete/buku"
+                            selectedId={formData.id_buku}
                             setSelectedId={(id) => {
-                                setFormData({ ...formData, id_pelanggan: id });
+                                setFormData({ ...formData, id_buku: id });
                                 setErrors((prev) => ({
                                     ...prev,
-                                    id_pelanggan: !id,
+                                    id_buku: !id,
                                 }));
                             }}
-                            selectedName={formData.nama_pelanggan}
-                            setSelectedName={(nama) =>
+                            selectedName={formData.judul}
+                            setSelectedName={(judul) =>
                                 setFormData({
                                     ...formData,
-                                    nama_pelanggan: nama,
+                                    judul: judul,
                                 })
                             }
                         />
-                        {errors.id_pelanggan && (
-                            <p className="text-red-500">
-                                Pelanggan tidak tersedia!
-                            </p>
+                        {errors.id_buku && (
+                            <p className="text-red-500">Buku tidak tersedia!</p>
                         )}
                     </div>
 
                     <InputComponent
-                        id="tanggal_pesanan"
-                        title="tanggal pesanan"
+                        id="jumlah_pesanan"
+                        title="jumlah pesanan"
                         type="text"
-                        value={formData.tanggal_pesanan}
+                        value={formData.jumlah_pesanan}
                         onChange={handleChange}
                     />
                 </div>

@@ -19,7 +19,7 @@ export default function Dashboard() {
         <AuthenticatedLayout>
             <div className="flex flex-col items-center w-full p-5 gap-5">
                 <h1 className="text-xl font-bold uppercase bg-white drop-shadow-sm w-full py-5 text-center rounded-xl">
-                    Perfomance Analytics
+                    Analisis Penjualan 2024
                 </h1>
                 <div className="grid grid-cols-2 gap-5 w-full">
                     <GenreDistributionChart data={genreDistribution} />

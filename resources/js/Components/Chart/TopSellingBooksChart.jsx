@@ -23,7 +23,7 @@ const TopSellingBooksChart = ({ data }) => {
         labels: data.map((book) => book.judul),
         datasets: [
             {
-                label: "Total Sold",
+                label: "Terjual",
                 data: data.map((book) => book.total_sold),
 
                 backgroundColor: (context) => {
@@ -65,7 +65,7 @@ const TopSellingBooksChart = ({ data }) => {
     return (
         <div className="bg-white p-5 rounded-2xl h-full flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
-                Top Selling Books
+                Buku Terlaris
             </h2>
             <Bar data={chartData} options={options} />
         </div>

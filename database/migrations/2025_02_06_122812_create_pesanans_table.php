@@ -14,13 +14,10 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('id_pesanan');
             $table->unsignedBigInteger('id_pelanggan'); // Define the column type
-            $table->unsignedBigInteger('id_buku'); // Define the column type
-            $table->smallInteger('jumlah_pesanan');
             $table->date('tanggal_pesanan');
             $table->timestamps();
 
             $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan');
-            $table->foreign('id_buku')->references('id_buku')->on('buku');
         });
     }
 

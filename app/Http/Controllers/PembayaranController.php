@@ -12,7 +12,13 @@ class PembayaranController extends Controller
 {
     public function index()
     {
-        $payments = Pembayaran::all();
+        $payments = Pembayaran::select(
+            'pembayaran.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+        )
+            ->leftJoin('pesanan', 'pesanan.id_pesanan', '=', 'pembayaran.id_pesanan')
+            ->leftJoin('pelanggan', 'pesanan.id_pelanggan', '=', 'pelanggan.id_pelanggan')
+            ->get();
         return Inertia::render('Crud/Pembayaran', [
             'payments' => $payments
         ]);

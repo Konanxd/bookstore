@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayaran', function (Blueprint $table) {
-            $table->id('id_pembayaran');
-            $table->date('tanggal_pembayaran');
-            $table->integer('total_pembayaran');
-            $table->enum('metode_pembayaran', ['Cash', 'Debit']);
+        Schema::create('pesanan_buku', function (Blueprint $table) {
             $table->unsignedBigInteger('id_pesanan');
+            $table->unsignedBigInteger('id_buku');
+            $table->integer('jumlah_pesanan');
             $table->timestamps();
 
+            $table->foreign('id_buku')->references('id_buku')->on('buku');
             $table->foreign('id_pesanan')->references('id_pesanan')->on('pesanan');
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('pesanan_buku');
     }
 };

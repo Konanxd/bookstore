@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
 use App\Models\Genre;
+use App\Models\Pelanggan;
 use App\Models\Penerbit;
 use App\Models\Penulis;
 use Illuminate\Http\Request;
@@ -73,6 +75,28 @@ class AutocompleteController extends Controller
             Penerbit::where('id_penerbit', '=', "{$search}")
                 ->limit(10)
                 ->pluck('nama_penerbit')
+        );
+    }
+
+    public function pelanggan(Request $request)
+    {
+        $search = $request->query('q');
+
+        return response()->json(
+            Pelanggan::where('nama_pelanggan', 'like', "%{$search}%")
+                ->limit(10)
+                ->get(['id_pelanggan as id', 'nama_pelanggan as nama'])
+        );
+    }
+
+    public function buku(Request $request)
+    {
+        $search = $request->query('q');
+
+        return response()->json(
+            Buku::where('judul', 'like', "%{$search}%")
+                ->limit(10)
+                ->get(['id_buku as id', 'judul as judul'])
         );
     }
 }

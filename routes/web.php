@@ -1,19 +1,20 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\BukuController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\PenerbitController;
-use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PenulisController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PenerbitController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\PesananBukuController;
 use App\Http\Controllers\AutocompleteController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -36,6 +37,8 @@ Route::get('/api/autocomplete/penulis', [AutocompleteController::class, 'penulis
 Route::get('/api/autocomplete/penulis_nama', [AutocompleteController::class, 'penulisNama']);
 Route::get('/api/autocomplete/penerbit', [AutocompleteController::class, 'penerbit']);
 Route::get('/api/autocomplete/penerbit_nama', [AutocompleteController::class, 'penerbitNama']);
+Route::get('/api/autocomplete/pelanggan', [AutocompleteController::class, 'pelanggan']);
+Route::get('/api/autocomplete/buku', [AutocompleteController::class, 'buku']);
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -69,15 +72,13 @@ Route::post('/pesanan', [PesananController::class, 'store'])->name('pesanan.stor
 Route::put('/pesanan/{id}', [PesananController::class, 'update'])->name('pesanan.update');
 Route::delete('/pesanan/{id}', [PesananController::class, 'destroy'])->name('pesanan.destroy');
 
+Route::get('/pesanan_buku', [PesananBukuController::class, 'index'])->name('pesanan_buku.index');
+Route::put('/pesanan_buku/{id}', [PesananBukuController::class, 'update'])->name('pesanan_buku.update');
+Route::delete('/pesanan_buku/{id}', [PesananBukuController::class, 'destroy'])->name('pesanan_buku.destroy');
+
 Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
-Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
 Route::put('/pembayaran/{id}', [PembayaranController::class, 'update'])->name('pembayaran.update');
 Route::delete('/pembayaran/{id}', [PembayaranController::class, 'destroy'])->name('pembayaran.destroy');
-
-Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman.index');
-Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store');
-Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update');
-Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
 
 
 Route::middleware('auth')->group(function () {

@@ -12,7 +12,12 @@ class PesananController extends Controller
 {
     public function index()
     {
-        $orders = Pesanan::all();
+        $orders = Pesanan::select(
+            'pesanan.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+        )
+            ->leftJoin('pelanggan', 'pesanan.id_pelanggan', '=', 'pelanggan.id_pelanggan')
+            ->get();
         return Inertia::render('Crud/Pesanan', [
             'orders' => $orders
         ]);

@@ -10,8 +10,6 @@ class Pesanan extends Model
     protected $table = "pesanan";
     protected $fillable = [
         'id_pelanggan',
-        'id_buku',
-        'jumlah_pesanan',
         'tanggal_pesanan'
     ];
 
@@ -20,13 +18,8 @@ class Pesanan extends Model
         return $this->belongsTo(Pelanggan::class);
     }
 
-    public function buku()
+    public function pembayaran()
     {
-        return $this->belongsTo(Buku::class);
-    }
-
-    public function pengiriman()
-    {
-        return $this->hasOne(Pembayaran::class);
+        return $this->belongsTo(Pembayaran::class);
     }
 }

@@ -10,12 +10,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $genreDistribution = DB::table('buku')
+        $genreDistribution = DB::table('pesanan_buku')
+            ->join('buku', 'buku.id_buku', '=', 'pesanan_buku.id_buku')
             ->join('genre', 'buku.id_genre', '=', 'genre.id_genre')
-            ->select('genre.nama_genre as Genre', DB::raw('COUNT(*) as Total'))
+            ->select('genre.nama_genre as Genre', DB::raw('SUM(pesanan_buku.jumlah_pesanan) as Total'))
             ->groupBy('genre.nama_genre')
             ->orderBy('Total', 'desc')
-            ->limit(5)
             ->get();
 
         $bookStockLevels = DB::table('buku')
@@ -25,15 +25,20 @@ class DashboardController extends Controller
             ->get();
 
         $salesOverTime = DB::table('pesanan')
-            ->select(DB::raw('DATE_FORMAT(tanggal_pesanan, "%Y-%m") as month'), DB::raw('SUM(jumlah_pesanan) as total_sold'))
-            ->whereYear('tanggal_pesanan', 2024)
-            ->groupBy('month')
-            ->orderBy('month', 'ASC')
+            ->join('pembayaran', 'pembayaran.id_pesanan', '=', 'pesanan.id_pesanan')
+            ->select(
+                DB::raw('MONTHNAME(pesanan.tanggal_pesanan) as month'),
+                DB::raw('MONTH(pesanan.tanggal_pesanan) as month_number'),
+                DB::raw('SUM(pembayaran.total_pembayaran) as total_sold')
+            )
+            ->whereYear('pesanan.tanggal_pesanan', 2024)
+            ->groupBy('month', 'month_number')
+            ->orderBy('month_number')
             ->get();
 
-        $topSellingBooks = DB::table('buku')
-            ->join('pesanan', 'buku.id_buku', '=', 'pesanan.id_buku')
-            ->select('buku.judul', DB::raw('SUM(pesanan.jumlah_pesanan) as total_sold'))
+        $topSellingBooks = DB::table('pesanan_buku')
+            ->join('buku', 'buku.id_buku', '=', 'pesanan_buku.id_buku')
+            ->select('buku.judul', DB::raw('SUM(pesanan_buku.jumlah_pesanan) as total_sold'))
             ->groupBy('buku.judul')
             ->orderBy('total_sold', 'desc')
             ->limit(10)

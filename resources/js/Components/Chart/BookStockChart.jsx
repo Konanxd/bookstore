@@ -17,7 +17,7 @@ export default function BookStockChart({ data }) {
         labels: data.map((item) => item.book),
         datasets: [
             {
-                label: "Stock Levels",
+                label: "Jumlah Stok",
                 data: data.map((item) => item.stock),
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 1,
@@ -59,7 +59,7 @@ export default function BookStockChart({ data }) {
     return (
         <div className="bg-white p-5 rounded-2xl h-full flex flex-col justify-between drop-shadow-md">
             <h2 className="text-center text-lg font-semibold my-4">
-                Stock Levels
+                Jumlah Stok Buku
             </h2>
             <Bar data={chartData} options={options} />
         </div>
