@@ -31,7 +31,7 @@ const tableFields = [
     "stok",
 ];
 
-const commonCellClass = "py-5 relative";
+const commonCellClass = "py-5";
 const commonHeaderClass = "py-5 xs:px-5 sm:px-5 md:px-5 lg:px-3";
 
 export function book() {}
@@ -131,50 +131,56 @@ export default function TableBook() {
                 />
             )}
 
-            <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
-                <thead>
-                    <tr className="bg-gray-100">
-                        {tableHeaders.map((header) => (
-                            <th key={header} className={commonHeaderClass}>
-                                <div className="flex items-center justify-center gap-1">
-                                    {header}
-                                </div>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {seacrhBook.map((book) => (
-                        <tr
-                            key={book.id_buku}
-                            className="border-b-2 border-gray-200 text-center"
-                        >
-                            {tableFields.map((field) => (
-                                <td key={field} className={commonCellClass}>
-                                    {book[field]}
-                                </td>
+            <div className=" w-full h-full overflow-x-scroll">
+                <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            {tableHeaders.map((header) => (
+                                <th key={header} className={commonHeaderClass}>
+                                    <div className="flex items-center justify-center gap-1">
+                                        {header}
+                                    </div>
+                                </th>
                             ))}
-                            <td className={commonCellClass}>
-                                <button
-                                    className="rounded bg-blue-500 px-2 py-2 text-white"
-                                    onClick={() => {
-                                        handleEdit(book);
-                                    }}
-                                >
-                                    <PenIcon className="size-3 fill-white" />
-                                </button>
-
-                                <button
-                                    onClick={() => handleDelete(book.id_buku)}
-                                    className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
-                                >
-                                    <TrashIcon className="size-3 fill-white" />
-                                </button>
-                            </td>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {seacrhBook.map((book) => (
+                            <tr
+                                key={book.id_buku}
+                                className="border-b-2 border-gray-200 text-center"
+                            >
+                                {tableFields.map((field) => (
+                                    <td key={field} className={commonCellClass}>
+                                        {book[field]}
+                                    </td>
+                                ))}
+                                <td className="px-2">
+                                    <div className=" flex flex-row justify-center items-center">
+                                        <button
+                                            className="rounded bg-blue-500 px-2 py-2 text-white"
+                                            onClick={() => {
+                                                handleEdit(book);
+                                            }}
+                                        >
+                                            <PenIcon className="size-3 fill-white" />
+                                        </button>
+
+                                        <button
+                                            onClick={() =>
+                                                handleDelete(book.id_buku)
+                                            }
+                                            className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
+                                        >
+                                            <TrashIcon className="size-3 fill-white" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

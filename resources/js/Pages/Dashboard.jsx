@@ -21,7 +21,7 @@ export default function Dashboard() {
                 <h1 className="text-xl font-bold uppercase bg-white drop-shadow-sm w-full py-5 text-center rounded-xl">
                     Analisis Penjualan 2024
                 </h1>
-                <div className="grid grid-cols-2 gap-5 w-full">
+                <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-5 w-full">
                     <GenreDistributionChart data={genreDistribution} />
                     <BookStockChart data={bookStockLevels} />
                     <SalesOverTimeChart data={salesOverTime} />

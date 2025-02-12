@@ -116,51 +116,57 @@ export default function TablePembayaran({ payments }) {
                 />
             )}
 
-            <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
-                <thead>
-                    <tr className="bg-gray-100">
-                        {tableHeaders.map((header) => (
-                            <th key={header} className={commonHeaderClass}>
-                                <div className="flex items-center justify-center gap-1">
-                                    {header}
-                                </div>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {Payments.map((payment) => (
-                        <tr
-                            key={payment.id_pembayaran}
-                            className="border-b-2 border-gray-200 text-center"
-                        >
-                            {tableFields.map((field) => (
-                                <td key={field} className={commonCellClass}>
-                                    {payment[field]}
-                                </td>
+            <div className="w-full h-full overflow-x-scroll">
+                <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            {tableHeaders.map((header) => (
+                                <th key={header} className={commonHeaderClass}>
+                                    <div className="flex items-center justify-center gap-1">
+                                        {header}
+                                    </div>
+                                </th>
                             ))}
-                            <td className={commonCellClass}>
-                                <button
-                                    className="rounded bg-blue-500 px-2 py-2 text-white"
-                                    onClick={() => {
-                                        handleEdit(payment);
-                                    }}
-                                >
-                                    <PenIcon className="size-3 fill-white" />
-                                </button>
-                                <button
-                                    onClick={() =>
-                                        handleDelete(payment.id_pembayaran)
-                                    }
-                                    className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
-                                >
-                                    <TrashIcon className="size-3 fill-white" />
-                                </button>
-                            </td>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {Payments.map((payment) => (
+                            <tr
+                                key={payment.id_pembayaran}
+                                className="border-b-2 border-gray-200 text-center"
+                            >
+                                {tableFields.map((field) => (
+                                    <td key={field} className={commonCellClass}>
+                                        {payment[field]}
+                                    </td>
+                                ))}
+                                <td className="px-2">
+                                    <div className="flex flex-row">
+                                        <button
+                                            className="rounded bg-blue-500 px-2 py-2 text-white"
+                                            onClick={() => {
+                                                handleEdit(payment);
+                                            }}
+                                        >
+                                            <PenIcon className="size-3 fill-white" />
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleDelete(
+                                                    payment.id_pembayaran
+                                                )
+                                            }
+                                            className="ml-2 rounded bg-red-500 px-2 py-2 text-white"
+                                        >
+                                            <TrashIcon className="size-3 fill-white" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
