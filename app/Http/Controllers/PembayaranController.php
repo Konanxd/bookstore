@@ -61,16 +61,6 @@ class PembayaranController extends Controller
 
     public function destroy($id)
     {
-        $hasRelation = DB::table('pengiriman')
-            ->where('id_pembayaran', $id)
-            ->exists();
-
-        if ($hasRelation) {
-            return redirect()->route('pengiriman.index')->withErrors([
-                'message' => 'Data ini tidak bisa dihapus karena id masih tersedia di tabel lain.'
-            ]);
-        }
-
         $pembayaran = Pembayaran::where('id_pembayaran', $id)->delete();
         if (!$pembayaran) {
             return redirect()->route('pembayaran.index')->withErrors('message', 'Data tidak ditemukan.');

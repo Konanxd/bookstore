@@ -23,28 +23,14 @@ class PesananController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'id_pelanggan' => 'required|integer|max_digits:10',
-            'id_buku' => 'required|integer|max_digits:10',
-            'jumlah_pesanan' => 'required|integer|max_digits:5',
-            'tanggal_pesanan' => 'required|date|max_digits:10',
-        ]);
-
-        Pesanan::create($validated);
-
-        return redirect()->route('pesanan.index')->with('message', 'Data berhasil ditambahkan!');
-    }
-
     public function update(Request $request, $id)
     {
+
         $validated = $request->validate([
             'id_pelanggan' => 'required|integer|max_digits:10',
-            'id_buku' => 'required|integer|max_digits:10',
-            'jumlah_pesanan' => 'required|integer|max_digits:5',
-            'tanggal_pesanan' => 'required|date|max_digits:10',
+            'tanggal_pesanan' => 'required|date',
         ]);
+
 
         $pesanan = DB::table('pesanan')
             ->where('id_pesanan', $id)

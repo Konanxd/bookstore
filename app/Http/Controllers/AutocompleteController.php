@@ -96,7 +96,7 @@ class AutocompleteController extends Controller
         return response()->json(
             Buku::where('judul', 'like', "%{$search}%")
                 ->limit(10)
-                ->get(['id_buku as id', 'judul as judul'])
+                ->get(['id_buku as id', 'judul as nama'])
         );
     }
 }
