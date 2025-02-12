@@ -67,19 +67,6 @@ export default function TablePembayaran({ payments }) {
         }
     };
 
-    const handleUpdate = (updatedData) => {
-        router.put(`/pembayaran/${selectedItem.id_pembayaran}`, updatedData, {
-            onSuccess: () => {
-                alert("Pembayaran berhasil diubah!");
-                setEditOpen(false);
-                setSelectedItem(null);
-            },
-            onError: () => {
-                alert("Failed to update book.");
-            },
-        });
-    };
-
     const Payments = payments.filter((payment) =>
         payment.nama_pelanggan.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -98,23 +85,6 @@ export default function TablePembayaran({ payments }) {
                     className="p-2 border rounded-md w-full"
                 />
             </CrudHead>
-            {TambahOpen && (
-                <FormPembayaran
-                    onSubmit={handleAddItem}
-                    onCancel={() => setTambahOpen(false)}
-                />
-            )}
-
-            {EditOpen && selectedItem && (
-                <FormPembayaran
-                    data={selectedItem}
-                    onSubmit={handleUpdate}
-                    onCancel={() => {
-                        setEditOpen(false);
-                        setSelectedItem(null);
-                    }}
-                />
-            )}
 
             <table className="drop-shadow-m w-full border-collapse overflow-hidden rounded-md bg-white drop-shadow-md">
                 <thead>
@@ -140,14 +110,6 @@ export default function TablePembayaran({ payments }) {
                                 </td>
                             ))}
                             <td className={commonCellClass}>
-                                <button
-                                    className="rounded bg-blue-500 px-2 py-2 text-white"
-                                    onClick={() => {
-                                        handleEdit(payment);
-                                    }}
-                                >
-                                    <PenIcon className="size-3 fill-white" />
-                                </button>
                                 <button
                                     onClick={() =>
                                         handleDelete(payment.id_pembayaran)

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CrudHead from "../CrudHead";
-import FormPesanan from "../Form/FormPesanan";
+import FormPesananBuku from "../Form/FormPesananBuku";
 import PenIcon from "../Icon/PenIcon";
 import TrashIcon from "../Icon/TrashIcon";
 import { router } from "@inertiajs/react";
@@ -35,20 +35,6 @@ export default function TablePesanan({ orders }) {
         setSelectedItem(item);
         setEditOpen(true);
     };
-
-    // const handleAddItem = (newData) => {
-    //     router.post("/pesanan", newData, {
-    //         onSuccess: () => {
-    //             alert("Pesanan berhasil ditambahkan!");
-    //             setTambahOpen(false);
-    //         },
-    //         onError: () => {
-    //             alert(
-    //                 "Gagal menambahkan pesanan. Terjadi kesalahan atau judul pesanan sudah tersedia."
-    //             );
-    //         },
-    //     });
-    // };
 
     const handleDelete = (id) => {
         if (window.confirm("Anda yakin ingin menghapus data ini?")) {
@@ -104,7 +90,7 @@ export default function TablePesanan({ orders }) {
             )} */}
 
             {EditOpen && selectedItem && (
-                <FormPesanan
+                <FormPesananBuku
                     data={selectedItem}
                     onSubmit={handleUpdate}
                     onCancel={() => {

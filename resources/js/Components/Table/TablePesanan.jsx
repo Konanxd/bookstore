@@ -34,30 +34,14 @@ export default function TablePesanan({ orders }) {
         setEditOpen(true);
     };
 
-    const handleAddItem = (newData) => {
-        router.post("/pesanan", newData, {
-            onSuccess: () => {
-                alert("Pesanan berhasil ditambahkan!");
-                setTambahOpen(false);
-            },
-            onError: () => {
-                alert(
-                    "Gagal menambahkan pesanan. Terjadi kesalahan atau judul pesanan sudah tersedia."
-                );
-            },
-        });
-    };
-
     const handleDelete = (id) => {
         if (window.confirm("Anda yakin ingin menghapus data ini?")) {
             router.delete(`/pesanan/${id}`, {
                 onSuccess: () => {
                     alert("Pesanan berhasil dihapus!");
                 },
-                onError: () => {
-                    alert(
-                        "Terjadi kesalahan atau pesanan masih tersedia di tabel lain."
-                    );
+                onError: (error) => {
+                    alert(error);
                 },
             });
         }
@@ -94,12 +78,6 @@ export default function TablePesanan({ orders }) {
                     className="p-2 border rounded-md w-full"
                 />
             </CrudHead>
-            {TambahOpen && (
-                <FormPesanan
-                    onSubmit={handleAddItem}
-                    onCancel={() => setTambahOpen(false)}
-                />
-            )}
 
             {EditOpen && selectedItem && (
                 <FormPesanan

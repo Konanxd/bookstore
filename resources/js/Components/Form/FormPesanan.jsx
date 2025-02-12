@@ -19,13 +19,11 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validate foreign keys
         const newErrors = {
             id_pelanggan: !formData.id_pelanggan,
         };
 
         setErrors(newErrors);
-        // Prevent submission if any required foreign key is missing
         if (Object.values(newErrors).some((error) => error)) {
             return;
         }
