@@ -83,6 +83,13 @@ export default function TablePublisher({ publishers }) {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="p-2 border rounded-md w-full"
                 />
+                <button
+                    type="button"
+                    className="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold uppercase text-white hover:bg-blue-400"
+                    onClick={() => setTambahOpen(!TambahOpen)}
+                >
+                    tambah
+                </button>
             </CrudHead>
             {TambahOpen && (
                 <FormPublisher

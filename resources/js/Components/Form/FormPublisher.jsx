@@ -22,9 +22,9 @@ export default function FormPublisher({ data, onSubmit, onCancel }) {
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
                 <h1 className="font-bold uppercase">
-                    {data ? "Edit Penerbit" : "Tambah Tambah"}
+                    {data ? "Edit Penerbit" : "Tambah Penerbit"}
                 </h1>
-                <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
+                <div className="grid w-[400px] grid-cols-1 gap-4 rounded">
                     <InputComponent
                         id="nama_penerbit"
                         title="nama penerbit"

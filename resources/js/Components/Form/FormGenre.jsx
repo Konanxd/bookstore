@@ -21,8 +21,10 @@ export default function FormGenre({ data, onSubmit, onCancel }) {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center gap-10 rounded-lg bg-white p-10 shadow-lg"
             >
-                <h1 className="font-bold uppercase">tambah genre</h1>
-                <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
+                <h1 className="font-bold uppercase">
+                    {data ? "Edit Genre" : "Tambah Genre"}
+                </h1>
+                <div className="grid w-[400px] grid-cols-1 gap-4 rounded">
                     <InputComponent
                         id="nama_genre"
                         title="nama genre"

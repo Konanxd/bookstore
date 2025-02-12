@@ -24,7 +24,7 @@ export default function FormPenulis({ data, onSubmit, onCancel }) {
                 <h1 className="font-bold uppercase">
                     {data ? "Edit Penullis" : "Tambah Penulis"}
                 </h1>
-                <div className="grid w-[800px] grid-cols-2 gap-4 rounded">
+                <div className="grid w-[400px] grid-cols-1 gap-4 rounded">
                     <InputComponent
                         id="nama_penulis"
                         title="nama penulis"

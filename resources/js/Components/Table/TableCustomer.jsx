@@ -85,10 +85,7 @@ export default function TableCustomer({ customers }) {
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
-            <CrudHead
-                title="Pelanggan"
-                onClick={() => setTambahOpen(!TambahOpen)}
-            >
+            <CrudHead title="Pelanggan">
                 <input
                     type="text"
                     placeholder="Cari Customer..."
@@ -96,7 +93,15 @@ export default function TableCustomer({ customers }) {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="p-2 border rounded-md w-full"
                 />
+                <button
+                    type="button"
+                    className="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold uppercase text-white hover:bg-blue-400"
+                    onClick={() => setTambahOpen(!TambahOpen)}
+                >
+                    tambah
+                </button>
             </CrudHead>
+
             {TambahOpen && (
                 <FormPelanggan
                     onSubmit={handleAddItem}

@@ -66,10 +66,15 @@ export default function TableGenre({ genres }) {
 
     return (
         <div className="mx-10 mt-10 flex flex-col gap-4">
-            <CrudHead
-                title="Genre"
-                onClick={() => setTambahOpen(!TambahOpen)}
-            />
+            <CrudHead title="Genre" onClick={() => setTambahOpen(!TambahOpen)}>
+                <button
+                    type="button"
+                    className="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold uppercase text-white hover:bg-blue-400"
+                    onClick={() => setTambahOpen(!TambahOpen)}
+                >
+                    tambah
+                </button>
+            </CrudHead>
             {TambahOpen && (
                 <FormGenre
                     onSubmit={handleAddItem}
