@@ -73,7 +73,7 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
                     <InputComponent
                         id="jumlah_pesanan"
                         title="jumlah pesanan"
-                        type="text"
+                        type="number"
                         value={formData.jumlah_pesanan}
                         onChange={handleChange}
                     />

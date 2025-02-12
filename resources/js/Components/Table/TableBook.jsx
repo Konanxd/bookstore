@@ -90,7 +90,7 @@ export default function TableBook() {
         });
     };
 
-    const Books = books.filter((book) =>
+    const seacrhBook = books.filter((book) =>
         book.judul.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -144,7 +144,7 @@ export default function TableBook() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Books.map((book) => (
+                    {seacrhBook.map((book) => (
                         <tr
                             key={book.id_buku}
                             className="border-b-2 border-gray-200 text-center"

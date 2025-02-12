@@ -48,7 +48,7 @@ const AutocompleteInput = ({
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             />
             {showSuggestions && suggestions.length > 0 && (
-                <ul className="absolute bg-white border w-full mt-1 rounded shadow-lg z-10">
+                <ul className="absolute top-16 bg-white border w-full mt-1 rounded shadow-lg z-10">
                     {suggestions.map((suggestion) => (
                         <li
                             key={suggestion.id}

@@ -73,7 +73,7 @@ export default function FormPesanan({ data, onSubmit, onCancel }) {
                     <InputComponent
                         id="tanggal_pesanan"
                         title="tanggal pesanan"
-                        type="text"
+                        type="date"
                         value={formData.tanggal_pesanan}
                         onChange={handleChange}
                     />
